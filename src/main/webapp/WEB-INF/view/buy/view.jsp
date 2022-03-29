@@ -11,6 +11,40 @@
 <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js'></script>
 <script src='https://kit.fontawesome.com/449f39a7b2.js' crossorigin='anonymous'></script>
 <script>
+
+$(() => {
+	$('#addCommentBtn').click(() => {
+		let comment = $('#commentText').val();
+		let userNickName = $('#userId').text();
+		let time = new Date() ;
+
+		$('#comment').append(`<li class='col-12 border-top'>
+								<div class='row justify-content-between align-items-center'>
+									<div class='col mt-2'>
+										<small><span class='pr-3'>${userNickName}</span></small>
+										<time class='col small border-left'>
+											${time.toLocaleTimeString([], {timeStyle: 'short'})}
+										</time>
+										<div class='row mt-2'>
+											<p class='col'>${comment}</p>  
+										</div>
+									</div>
+									<button id='likeBtn' type='button' class='btn'>
+										<i class="fa-regular fa-thumbs-up"></i>
+									</button>
+									<button type='button' class='col-1 btn btn-light' data-toggle='dropdown'>
+										<i class="fa-solid fa-ellipsis-vertical"></i>
+									</button>
+									<div class='dropdown-menu w-25'>
+										<button type='button' class='dropdown-item'>수정</button><hr>
+										<button type='button' id='delComment' class='dropdown-item delContent'>삭제</button>
+									</div>
+								</div>
+							</li>`)			
+		$('#commentText').val('')					
+	})
+})
+
 function checkWish() {
 	let checkWish = $('.fa-heart').hasClass('on')
 
@@ -34,41 +68,8 @@ $(() => {
 	})
 
 	checkRes()
-	
-	$('.goChatBtn').click(() => {
-		if(!'${userId}') {
- 			location.href='/user/login'
- 		} else {
-			$.ajax({
-				url: '/chat/add',
-				method: 'post',
-				contentType: 'application/json',
-				data: JSON.stringify({
-					traderId: '${trade.traderId}',
-					userId: '${userId}',
-					tradeNum: '${trade.tradeNum}'			
-				})
-			})
- 		}
-	})
-	
-	$('#delPost').click(() => {
-		$('#modalBtn').show()
-		$('#modal').modal()
-	})
-
-	$('#delOkBtn').click(() => {
-		$('#modal').modal('hide')
-		let tradeNum = $('${trade.tradeNum}').val()
-
-		$.ajax({
-			url: 'del/' + '${trade.tradeNum}',
-			method: 'delete'
-		}).done(function() {
-			location.href='/buy'	
-		})
-	})
 })
+
 </script>
 <style>
 #chatBtn {
@@ -152,51 +153,51 @@ img {
 		</div>
 	</div>
 	
-	<div id='commentArea' class='container mt-1 mb-5 border-top'>
+	<div id='commentArea' class='container mt-4 mb-5'>
 		<div id='commentTitle' class='row p-3'>
 			<span class='h5'>댓글</span>
 		</div>
-		<form class='row form m-1 justify-content-between  pb-2 border-bottom'>
-			<input type='text' class='col-10 form-control' placeholder='댓글을 입력해주세요.'/>
-			<button type='button' class='col-2 form-control'>
+		<form class='row form justify-content-between pb-2 border-bottom'>
+			<input id='commentText' type='text' class='col-10 form-control' placeholder='댓글을 입력해주세요.'/>
+			<button id='addCommentBtn' type='button' class='col-2 form-control'>
 				<i class="fa-solid fa-paper-plane"></i>
 			</button>
 		</form>
-		<ul id='comment' class='row list-unstyled border-bottom'>
-			<li class='col-12 mt-3 border-bottom'>
+		<ul id='comment' class='row list-unstyled border'>
+			<li class='col-12 mt-2 border-bottom'>
 				<div class='row justify-content-between align-items-center'>
 					<div class='col'>
-						<small class='pr-3'>혀니</small>
-						<small class='border-left pl-3'>2시간 전</small>
+						<small class='pr-3'>네현이</small>
+						<small class='border-left pl-3'>1시간 전</small>
 						<p class='mt-2 d-block'>
-							금액은 얼마인가요?
+							채팅 드렸어요 확인해주세요.
 						</p>
 					</div>
                     <button id='likeBtn1' type='button' class='btn'>
                         <i class="fa-regular fa-thumbs-up"></i>
                     </button>
-					<button type='button' class='col-1 btn btn-light' data-toggle='dropdown'>
+					<button type='button' class='col-1 btn' data-toggle='dropdown'>
 						<i class="fa-solid fa-ellipsis-vertical"></i>
 					</button>
 					<div class='dropdown-menu w-25'>
 						<button type='button' class='dropdown-item'>수정</button><hr>
-						<button type='button' id='delComment' class='dropdown-item delContent'>삭제</button>
+						<button type='button' id='delComment' class='dropdown-item delContent'>삭제</button> 
 					</div>		
 				</div>
 			</li>
-			<li class='col-12 mt-3'>
+			<li class='col-12 mt-2'>
 				<div class='row justify-content-between align-items-center'>
 					<div class='col'>
-						<small class='pr-3'>시간을달려서</small>
+						<small class='pr-3'>유공이</small>
 						<small class='border-left pl-3'>20분 전</small>
 						<p class='mt-2 d-block'>
-							채팅 드렸어요 확인요
+							동숲이 재밌긴 하죠!!
 						</p>
 					</div>
 					<button id='likeBtn' type='button' class='btn'>
                         <i class="fa-regular fa-thumbs-up"></i>
                     </button>
-					<button type='button' class='col-1 btn btn-light' data-toggle='dropdown'>
+					<button type='button' class='col-1 btn' data-toggle='dropdown'>
 						<i class="fa-solid fa-ellipsis-vertical"></i>
 					</button>
 					<div class='dropdown-menu w-25'>
@@ -211,16 +212,16 @@ img {
 	<div  class='container-fulid'>
 		<div id='chatBtnCom'  class='row fixed-bottom d-none d-md-inline'>		
 			<div class='col'>
-				<a href="" class='btn p-2'>
+				<a href="../chat/02.html" class='btn p-2'>
 					<i class="fa-solid fa-comments fa-xl"></i>
 					<strong>채팅 시작하기</strong>
 				</a>
 			</div>
 		</div>
 		
-		<div id='chatBtn' onclick='location.href="/chat/room"'  class='row fixed-bottom d-sm-none goChatBtn'>		
+		<div id='chatBtn'  class='row fixed-bottom d-sm-none'>		
 			<div class='col'>
-				<a class='btn btn-block p-2'>
+				<a href="../chat/02.html" class='btn btn-block p-2'>
 					<i class="fa-solid fa-comments fa-xl"></i>
 					<strong class='ml-3'>채팅 시작하기</strong>
 				</a>
