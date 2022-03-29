@@ -1,0 +1,3 @@
+$('#delComment').click(() => {
+  $('#modal').modal()
+})

@@ -1,0 +1,17 @@
+th {
+    font-weight: 600;
+	background-color: #eee7da;
+}
+td {
+    font-weight: 400;
+}
+
+.editBtn,
+.delBtn {
+    background-color: #53787d;
+}
+
+.sendBtn {
+    background-color: #FCCE77;
+}
+

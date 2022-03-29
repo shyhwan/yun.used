@@ -1,0 +1,104 @@
+a {
+    text-decoration: none;
+    color: black;
+}
+
+header,
+.btnBack,
+.back {
+    background-color: #eee7da;
+}
+
+footer {
+    background-color: lightgrey;
+}
+
+#navBar {
+    background-color: white;
+}
+
+nav i {
+	color: lightgray;
+	/* text-shadow: 0.1rem 0.1rem 0.1rem gray; */
+}
+
+.successMsgPage {
+    margin-top: 9rem;
+}
+
+.colCenter {
+    float: none;
+    margin: 0 auto;
+}
+
+#mainContent {
+	margin-top: 5rem;
+}
+
+.product{
+	width: 8rem;
+	height: 8rem;
+}
+
+.productMin{
+	width: 5rem;
+	height: 5rem;
+}
+
+.msg {
+    color: #ff7707;
+}
+
+.userNick,
+time,
+.small {
+    color: gray;
+}
+
+.fa-paper-plane,
+.fa-ellipsis-vertical,
+.fa-calendar-check {
+    color: #53787d;
+}
+
+.fa-heart {
+	color: #db7093;
+}
+
+.buyBtn,
+.blindBtn,
+.yesBtn {
+	background-color: #FCCE77;
+}
+
+.sellBtn {
+	background-color: #53787d;
+}
+
+#chatBtn,
+#chatBtnCom a {
+    background-color: #fcce77;
+}
+
+.filebox label { 
+    display: inline-block; 
+    width: 7rem;
+	height: 7rem;
+    padding: 1rem 1rem;
+    text-align: center;
+    color: #999; 
+    cursor: pointer; 
+    border: 1px solid #ebebeb; 
+    border-radius: 8px; 
+}
+
+.filebox input[type="file"] {
+    position: absolute; 
+    width: 1px; 
+    height: 1px; 
+    padding: 0; 
+    margin: -1px; 
+    overflow: hidden; 
+    clip:rect(0,0,0,0); 
+    border: 0; 
+}

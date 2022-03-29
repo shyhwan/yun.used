@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace='yunseunghwan.used.dao.map.ReportMap'>
+	<select id='selectReports' resultType='report'>
+		select *
+		from reports
+		where user_id = #{userId}
+		order by report_reg_date
+	</select>
+	
+	<select id='selectReport' resultType='report'>
+		select * from reports
+		where report_num = #{reportNum}
+	</select>
+	
+	<insert id='insertReport'>
+		insert into reports(report_num, user_id, title, contents, report_img_file_name, accused_name)				
+		values (report_num_seq.nextval, #{userId}, #{title}, #{contents}, #{reportImgFileName}, #{accusedName})
+	</insert>
+</mapper>

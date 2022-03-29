@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE mapper PUBLIC '-//mybatis.org/DTD Mapper 3.0//EN'
+	'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
+<mapper namespace='yunseunghwan.used.dao.map.ChatMap'>
+	<select id='selectChats' resultType='chat'>
+		select *
+		from chats
+		where trader_id = #{traderId} or user_id = #{userId}
+		order by trade_num
+	</select>
+	
+	<select id='selectChat' resultType='chat'>
+		select *
+		from chats
+		where room_Num = #{roomNum}
+	</select>
+	
+	<select id='checkRoom' resultType='chat'>
+		select *
+		from chats
+		where user_id = #{userId} and trade_Num = #{tradeNum}
+	</select>
+	
+	<insert id='insertChat'>
+		insert into chats(room_num, trader_id, user_id, trade_Num)
+		values(chat_num_seq.nextval, #{traderId}, #{userId}, #{tradeNum})
+	</insert>
+</mapper>

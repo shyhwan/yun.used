@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE mapper PUBLIC '-//mybatis.org/DTD Mapper 3.0//EN'
+	'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
+<mapper namespace='yunseunghwan.used.dao.map.TradeMap'>
+	<select id='selectTrades' resultType='trade'>
+		select *
+		from trades
+		where trade_code = #{tradeCode} or trader_id = #{traderId}
+		order by trade_reg_date
+	</select>
+	
+	<select id='seletTrade' resultType='trade'>
+		select *
+		from trades
+		where trade_num = #{tradeNum}
+	</select>
+	
+	<insert id='insertTrade'>
+		insert into trades(trade_num, trader_id, trade_code, product_code, title,
+			contents, trade_img_file_name, location, price)
+		values(trade_num_seq.nextval, #{traderId}, #{tradeCode}, #{productCode}, #{title}, 
+			#{contents}, #{tradeImgFileName}, #{location}, #{price})
+	</insert>
+	
+	<update id='updateTrade'  parameterType='trade'>
+		update trades
+		set trader_id = #{traderId}, trade_code = #{tradeCode}, product_code = #{productCode}, 
+			title = #{title}, contents = #{contents}, trade_img_file_name = #{tradeImgFileName},
+			location = #{location}, price = #{price}, view_count = #{viewCount}
+		where trade_num = #{tradeNum}
+	</update>
+	
+	<delete id='deleteTrade'>
+		delete trades
+		where trade_num = #{tradeNum}
+	</delete>
+	
+	<select id='tradeView' resultType='trade' parameterType='trade'>
+	 select *
+	 from trades
+	 where trade_num = #{tradeNum}
+	</select>
+</mapper>

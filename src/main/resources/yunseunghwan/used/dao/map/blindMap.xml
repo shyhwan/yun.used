@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE mapper PUBLIC '-//mybatis.org/DTD Mapper 3.0//EN'
+	'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
+<mapper namespace='yunseunghwan.used.dao.map.BlindMap'>
+	<select id='selectBlinds' resultType='blind'>
+		select *
+		from blinds
+		order by blind_reg_date
+	</select>
+	
+	<select id='selectBlind' resultType='blind'>
+		select *
+		from blinds
+		where blind_num = #{blindNum}
+	</select>
+	
+	<insert id='insertBlind'>
+		insert into blinds(blind_num, user_id, title, contents)
+		values(blind_num_seq.nextval, #{userId}, #{title}, #{contents})
+	</insert>
+	
+	<update id='updateBlind'>
+		update blinds
+		set user_id = #{userId}, blind_reg_date = #{blindRegDate}, title = #{title}, 
+			contents = #{contents}, blind_like_count = #{blindLikeCount}
+		where blind_num = #{blindNum}
+	</update>
+	
+	<delete id='deleteBlind'>
+		delete blinds
+		where blind_num = #{blindNum}
+	</delete>
+</mapper>
