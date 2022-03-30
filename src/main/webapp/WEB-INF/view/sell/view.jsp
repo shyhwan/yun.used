@@ -62,8 +62,8 @@ function checkRes() {
 }
 
 function checkwriter() {
-	if('${userId}' != ${trade.traderId}) {
-		$('#writerBtn').hide()
+	if('${userId}' != '${trade.traderId}') {
+		$('.writerBtn').hide()
 	}
 }
 
@@ -108,6 +108,7 @@ $(() => {
 img {
 	border-radius: 8px;
 }
+
 </style>
 </head>
 <body>
@@ -145,13 +146,13 @@ img {
 			</button>
 		</div>
 
-		<div class='border' >
-			<div id='writerBtn' class='d-flex justify-content-center align-items-center'>
+		<div class='border writerBtn'>
+			<div class='d-flex justify-content-center align-items-center'>
 				<div class='btn-group btn-block btnBack p-2'>
-					<button type='button' class='btn resBtn btnBack writerBtn'>
+					<button type='button' class='btn resBtn btnBack'>
 						<i class="resIcon fa-regular fa-calendar-check fa-lg"></i>
 					</button>
-					<button type='button' class='btn writerBtn' data-toggle='dropdown'>
+					<button type='button' class='btn' data-toggle='dropdown'>
 						<i class="fa-solid fa-ellipsis-vertical fa-lg"></i>
 					</button>
 					<div class='dropdown-menu w-50'>

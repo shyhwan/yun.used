@@ -60,7 +60,15 @@ function checkRes() {
 	}) 
 }
 
+function checkwriter() {
+	if('${userId}' != '${trade.traderId}') {
+		$('.writerBtn').hide()
+	}
+}
+
 $(() => {
+	checkwriter()
+	
 	$('#checkHeart').click(() => {
         $('.fa-heart').toggleClass('on', 'off')
 		checkWish()
@@ -136,7 +144,7 @@ img {
 			</button>
 		</div>
 
-		<div class='border'>
+		<div class='border writerBtn'>
 			<div class='d-flex justify-content-center align-items-center'>
 				<div class='btn-group btn-block btnBack p-2'>
 					<button type='button' class='btn resBtn btnBack'>
@@ -222,6 +230,7 @@ img {
 			</li>
 		</ul>
 	</div>
+	<hr>
 
 	<div  class='container-fulid'>
 		<div id='chatBtnCom'  class='row fixed-bottom d-none d-md-inline'>		

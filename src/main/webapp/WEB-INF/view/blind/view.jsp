@@ -10,7 +10,15 @@
 <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js'></script>
 <script src='https://kit.fontawesome.com/449f39a7b2.js' crossorigin='anonymous'></script>
 <script>
+function checkwriter() {
+	if('${userId}' != '${blind.userId}') {
+		$('.editBtn').hide()
+	}
+}
+
 $(() => {
+	checkwriter()
+	
 	$('#delPost').click(() => {
 		$('#modalBtn').show()
 		$('#modal').modal()
@@ -60,13 +68,13 @@ $(() => {
 			</p>
 		</div>
 
-		<div class='border'>
+		<div class='border writerBtn'>
 			<div class='d-flex justify-content-center align-items-center'>
 				<div class='btn-group btn-block btnBack p-2'>
 					<button type='button' class='btn resBtn btnBack'>
 						<i class="fa-regular fa-thumbs-up fa-xl"></i>
 					</button>
-					<button type='button' class='btn' data-toggle='dropdown'>
+					<button type='button' class='btn editBtn' data-toggle='dropdown'>
 						<i class="fa-solid fa-ellipsis-vertical fa-lg"></i>
 					</button>
 					<div class='dropdown-menu w-50'>
