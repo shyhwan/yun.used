@@ -61,13 +61,36 @@ function checkRes() {
 	}) 
 }
 
+function checkwriter() {
+	if('${userId}' != ${trade.traderId}) {
+		$('#writerBtn').hide()
+	}
+}
+
 $(() => {
+	checkwriter()
+	
 	$('#checkHeart').click(() => {
         $('.fa-heart').toggleClass('on', 'off')
 		checkWish()
 	})
 
 	checkRes()
+	
+	$('#delPost').click(() => {
+		$('#modalBtn').show()
+		$('#modal').modal()
+	})
+
+	$('#delOkBtn').click(() => {
+		$('#modal').modal('hide')
+		$.ajax({
+			url: 'del/' + '${trade.tradeNum}',
+			method: 'delete'
+		}).done(function() {
+			location.href='/sell'	
+		})
+	})
 })
 
 </script>
@@ -91,7 +114,7 @@ img {
 	<header class='container-fulid border fixed-top'>
 		<div class='row justify-content-between align-items-center'>
 			<div class='col-4 ml-3 d-flex'>
-				<strong>구매 글 조회</strong>
+				<strong>판매 글 조회</strong>
 			</div>
 			<div class='col text-right mr-3'>
 				<a class='btn btn-lg' href='../buy'><i class='fas fa-xmark'></i></a>
@@ -122,13 +145,13 @@ img {
 			</button>
 		</div>
 
-		<div class='border'>
-			<div class='d-flex justify-content-center align-items-center'>
+		<div class='border' >
+			<div id='writerBtn' class='d-flex justify-content-center align-items-center'>
 				<div class='btn-group btn-block btnBack p-2'>
-					<button type='button' class='btn resBtn btnBack'>
+					<button type='button' class='btn resBtn btnBack writerBtn'>
 						<i class="resIcon fa-regular fa-calendar-check fa-lg"></i>
 					</button>
-					<button type='button' class='btn' data-toggle='dropdown'>
+					<button type='button' class='btn writerBtn' data-toggle='dropdown'>
 						<i class="fa-solid fa-ellipsis-vertical fa-lg"></i>
 					</button>
 					<div class='dropdown-menu w-50'>
@@ -139,6 +162,7 @@ img {
 				</div>
 			</div>
 		</div>
+		<hr>
 
 		<div class='row p-1 mt-4'>
 			<div class='col'>
@@ -280,7 +304,6 @@ img {
 			</div>
 		</div>
 	</div>
-	<script src='../res/modal.js'></script>
 	<script src='../res/likeBtn.js'></script>
 </body>
 </html>

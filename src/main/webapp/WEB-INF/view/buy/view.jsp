@@ -11,7 +11,6 @@
 <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js'></script>
 <script src='https://kit.fontawesome.com/449f39a7b2.js' crossorigin='anonymous'></script>
 <script>
-
 $(() => {
 	$('#addCommentBtn').click(() => {
 		let comment = $('#commentText').val();
@@ -68,6 +67,21 @@ $(() => {
 	})
 
 	checkRes()
+	
+	$('#delPost').click(() => {
+		$('#modalBtn').show()
+		$('#modal').modal()
+	})
+
+	$('#delOkBtn').click(() => {
+		$('#modal').modal('hide')
+		$.ajax({
+			url: 'del/' + '${trade.tradeNum}',
+			method: 'delete'
+		}).done(function() {
+			location.href='/buy'	
+		})
+	})
 })
 
 </script>
@@ -280,7 +294,6 @@ img {
 			</div>
 		</div>
 	</div>
-	<script src='../res/modal.js'></script>
 	<script src='../res/likeBtn.js'></script>
 </body>
 </html>
