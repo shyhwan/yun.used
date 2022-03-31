@@ -94,7 +94,6 @@ $(() => {
 		<div class='row p-3 justify-content-center align-items-center'>
 			<strong>
 				${traderNickName}
-				${chatRoom}
 			</strong>
 		</div>
 	</header>
