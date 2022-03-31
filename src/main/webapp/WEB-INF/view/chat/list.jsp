@@ -26,7 +26,7 @@ function chatList() {
 							<span>
 								\${++i}
 							</span>
-							<a class='col' href='chat/room?roomNum=\${chat.roomNum}'>
+							<a class='col' href='chat/room?tradeNum=\${chat.tradeNum}&userId=\${chat.userId}'>
 								<span class='d-block'>\${chat.userId}</span>
 								<small class='userNick'></small>
 							</a>

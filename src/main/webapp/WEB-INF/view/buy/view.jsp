@@ -99,6 +99,7 @@ $(() => {
 				})
 			})
  		}
+ 		location.href='/chat/room?tradeNum=${trade.tradeNum}&userId=${userId}'
 	})
 
 	$('#delPost').click(() => {

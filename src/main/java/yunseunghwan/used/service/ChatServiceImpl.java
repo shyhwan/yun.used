@@ -2,8 +2,6 @@ package yunseunghwan.used.service;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,9 +22,8 @@ public class ChatServiceImpl implements ChatService{
 	}
 	
 	@Override
-	public ModelAndView getChat(int roomNum, ModelAndView mv, HttpSession session) {
-		String userId = (String) session.getAttribute("usreId");
-		Chat chatVal = chatDao.selectChat(roomNum);
+	public ModelAndView getChat(String userId, int tradeNum, ModelAndView mv) {
+		Chat chatVal = chatDao.checkRoom(userId, tradeNum);
 		String traderId = chatVal.getTraderId();
 		User trader = userDao.selectUser(chatVal.getTraderId());
 		User user = userDao.selectUser(chatVal.getUserId());
@@ -42,15 +39,11 @@ public class ChatServiceImpl implements ChatService{
 	}
 	
 	@Override
-	public ModelAndView addChat(Chat chat, ModelAndView mv) {
+	public void addChat(Chat chat) {
 		Chat getChat = chatDao.checkRoom(chat.getUserId(), chat.getTradeNum());
 		
 		if(getChat == null) {
 			chatDao.insertChat(chat);			
 		}
-		getChat = chatDao.checkRoom(chat.getUserId(), chat.getTradeNum());
-		
-		mv.addObject("chatRoom", getChat);
-		return mv;
 	}
 }

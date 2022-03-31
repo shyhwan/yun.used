@@ -58,20 +58,22 @@ $(() => {
 	messagelog()
 		
 	$('#addMsgBtn').click(() => {
-		$.ajax({
-			url: 'sendMsg',
-			method: 'post',
-			contentType: 'application/json',
-			data: JSON.stringify({
-				userId: '${userId}',
-				roomNum: '${chatRoom.roomNum}',
-				message: $('#msgText').val()
-			})
-		}).done(messagelog)
-		$('#msgText').val('')
+		if(!$('#msgText').val()) {
+			$('#msgText').focus()
+		} else {			
+			$.ajax({
+				url: 'sendMsg',
+				method: 'post',
+				contentType: 'application/json',
+				data: JSON.stringify({
+					userId: '${userId}',
+					roomNum: '${chatRoom.roomNum}',
+					message: $('#msgText').val()
+				})
+			}).done(messagelog)
+			$('#msgText').val('')
+		}
 	})
-	
-	condole.log('${chatRoom}')
 })
 </script>
 <style>

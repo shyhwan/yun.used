@@ -36,13 +36,13 @@ public class ChatController {
 	}
 
 	@PostMapping("add")
-	public ModelAndView startChat(@RequestBody Chat chat, ModelAndView mv) {
-		return chatService.addChat(chat, mv);
+	public void startChat(@RequestBody Chat chat) {
+		chatService.addChat(chat);
 	}
 	
 	@GetMapping("room")
-	public ModelAndView chatRoom(int roomNum, ModelAndView mv, HttpSession session) {
-		return chatService.getChat(roomNum, mv, session);
+	public ModelAndView chatRoom(String userId, int tradeNum, ModelAndView mv) {
+		return chatService.getChat(userId, tradeNum, mv);
 	}
 	
 	@GetMapping("log")
