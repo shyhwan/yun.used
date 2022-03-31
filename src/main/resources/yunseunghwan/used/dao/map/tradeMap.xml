@@ -15,7 +15,7 @@
 		order by trade_num
 	</select>
 	
-	<select id='seletTrade' resultType='trade'>
+	<select id='selectTrade' resultType='trade'>
 		select *
 		from trades
 		where trade_num = #{tradeNum}
