@@ -36,7 +36,7 @@ public class TradeServiceImpl implements TradeService{
 	@Override
 	public ModelAndView getTrade(Trade trade, ModelAndView mv, HttpSession session) {
 		String userId = (String) session.getAttribute("userId");
-		Trade tradeVal = tradeDao.seletTrade(trade);
+		Trade tradeVal = tradeDao.selectTrade(trade);
 		String traderId = tradeVal.getTraderId();
 		User nickName = userDao.selectUser(traderId);		
 		
@@ -54,7 +54,7 @@ public class TradeServiceImpl implements TradeService{
 	
 	@Override
 	public ModelAndView getAdminTrade(ModelAndView mv, Trade trade) {
-		Trade tradeVal = tradeDao.seletTrade(trade);
+		Trade tradeVal = tradeDao.selectTrade(trade);
 		
 		mv.addObject("trade", tradeVal);
 		mv.setViewName("admin/trade/tradeManager");
@@ -88,7 +88,7 @@ public class TradeServiceImpl implements TradeService{
 	@Override 
 	public ModelAndView fixView(ModelAndView mv, Trade trade, HttpSession session) {
 		User user = (User) session.getAttribute("user");
-		Trade tradeVal = tradeDao.seletTrade(trade);
+		Trade tradeVal = tradeDao.selectTrade(trade);
 		String userId = tradeVal.getTraderId();
 		User nickName = userDao.selectUser(userId);		
 		

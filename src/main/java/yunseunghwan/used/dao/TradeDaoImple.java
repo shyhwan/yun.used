@@ -24,8 +24,8 @@ public class TradeDaoImple implements TradeDao{
 	}
 	
 	@Override
-	public Trade seletTrade(Trade trade) {
-		return tradeMap.seletTrade(trade);
+	public Trade selectTrade(Trade trade) {
+		return tradeMap.selectTrade(trade);
 	}
 	
 	@Override
