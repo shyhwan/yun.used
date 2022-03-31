@@ -249,7 +249,7 @@ img {
 				<i class="fa-solid fa-paper-plane"></i>
 			</button>
 		</form>
-		<ul id='commentList' class='row list-unstyled border'>
+		<ul id='commentList' class='row flex-column list-unstyled border-bottom'>
 			
 		</ul>
 	</div>
