@@ -20,21 +20,39 @@ function chatList() {
 			const chatList = []
 			
 			$.each(chats, (i, chat) => {
-				chatList.unshift(						
-					`<li class='border-bottom'>
-						<div class='row align-items-center p-3'>
-							<span>
-								\${++i}
-							</span>
-							<a class='col' href='chat/room?tradeNum=\${chat.tradeNum}&userId=\${chat.userId}'>
-								<span id='userId' class='d-block'>\${chat.userId}</span>
-								<small class='userNick'></small>
-							</a>
-							<div class=''>
-								<i class="fa-regular fa-bell" style='color:orangered'></i>
+				if('${userId}' != `\${chat.userId}`) {
+					chatList.unshift(
+						`<li class='border-bottom'>
+							<div class='row align-items-center p-3'>
+								<span>
+									\${++i}
+								</span>
+								<a class='col' href='chat/room?tradeNum=\${chat.tradeNum}&userId=\${chat.userId}'>
+									<span id='userId' class='d-block'>\${chat.userId}</span>
+									<small class='userNick'></small>
+								</a>
+								<div class=''>
+									<i class="fa-regular fa-bell" style='color:orangered'></i>
+								</div>
 							</div>
-						</div>
-					</li>`)
+						</li>`)
+				} else {
+					chatList.unshift(
+						`<li class='border-bottom'>
+							<div class='row align-items-center p-3'>
+								<span>
+									\${++i}
+								</span>
+								<a class='col' href='chat/room?tradeNum=\${chat.tradeNum}&userId=\${chat.userId}'>
+									<span id='userId' class='d-block'>\${chat.traderId}</span>
+									<small class='userNick'></small>
+								</a>
+								<div class=''>
+									<i class="fa-regular fa-bell" style='color:orangered'></i>
+								</div>
+							</div>
+						</li>`)
+				}
 
 			})
 			
@@ -53,7 +71,7 @@ function checkLogin() {
 }
 	
 $(() => {
-	checkLogin()
+	checkLogin() 
 	
 	chatList()
 })
