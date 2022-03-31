@@ -65,6 +65,11 @@ public class TradeServiceImpl implements TradeService{
 		
 	}
 	
+	@Override 
+	public Trade fixView(int tradeNum) {
+		return tradeDao.seletTrade(tradeNum);
+	}
+	
 	private void saveFile(String fileName, MultipartFile file) {
 		try {
 			file.transferTo(new File(fileName));

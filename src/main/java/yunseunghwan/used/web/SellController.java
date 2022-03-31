@@ -5,12 +5,13 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -54,15 +55,34 @@ public class SellController {
 		return mv;
 	}
 	
+	
+	
 	@GetMapping("view")
 	public ModelAndView tradeView(ModelAndView mv, HttpSession session, Trade trade) {
 		return tradeService.getTrade(trade, mv, session);
 	}
 	
-	@RequestMapping(value ="fix", method = {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView fixTradeView(ModelAndView mv, Trade trade, HttpSession session) {
-		return tradeService.fixView(mv, trade, session);
+	@GetMapping("fix")
+	public ModelAndView fixView(ModelAndView mv, int tradeNum, Model model) {
+		Trade trade  = tradeService.fixView(tradeNum);
+		model.addAttribute("trade", trade);
+		mv.setViewName("sell/fix");
+		return mv;
+		
 	}
+	
+	@PutMapping("fix") 
+	public String fixTrade(Trade trade, HttpSession session, Model model){
+		
+		tradeService.fixTrade(trade, session);
+		model.addAttribute("trade", trade);
+		
+		 
+		return "redirect:sell/view?tradeNum=" + trade.getTradeNum();
+	}
+	
+	
+
 	
 	@DeleteMapping("del/{tradeNum}")
 	public void delTrade(@PathVariable int tradeNum) {

@@ -22,7 +22,7 @@
 			#{contents}, #{tradeImgFileName}, #{location}, #{price})
 	</insert>
 	
-	<update id='updateTrade'  parameterType='trade'>
+	<update id='updateTrade' parameterType='trade'>
 		update trades
 		set trader_id = #{traderId}, trade_code = #{tradeCode}, product_code = #{productCode}, 
 			title = #{title}, contents = #{contents}, trade_img_file_name = #{tradeImgFileName},

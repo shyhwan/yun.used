@@ -69,13 +69,18 @@ function isVal(field) {
 	      })
 	   })
 	   
-	   $('#fixBtn').click(() => {
-	       if(isVal($('#tradeImgFile')) &&  isVal($('#title')) && isVal($('#tradeCode')) 
-	         && isVal($('#productCode')) && isVal($('#location')) && isVal($('#contents'))) {   
-	             $('form').submit()
-	      }
-	   })
-	})
+})
+
+$(() => {
+$('#fixBtn').click(() => {
+       if(isVal($('#tradeImgFile')) && isVal($('#title')) && isVal($('#tradeCode')) 
+         && isVal($('#productCode')) && isVal($('#location')) && isVal($('#contents'))) {   
+    	     $('form').submit()
+       }
+      })
+   
+})
+   
 
 	</script>
 <style>
@@ -94,17 +99,17 @@ function isVal(field) {
 
 	<div class='container min-vh-100'>
 		<div id='mainContent' class='row'>
-			<form method='post' action='view?tradeNum=${trade.tradeNum}' class='col form' encType='multipart/form-data'>
+			<form method='post'  class='col form' encType='multipart/form-data'>
 				<div id='imgArea' class='row form-group ml-2 filebox'>
 					<label for='tradeImgFile'>사 진<br> 추 가</label>
                		<input id='tradeImgFile' name='tradeImgFile' type='file' class='pb-5 form-control' accept='image/*' multiple />
-               	
+               		<img src='/attach/${trade.tradeImgFileName}'/>
 				</div>
 				<div class='row form-group border'>
-					<input type='text' class='form-control input-lg border-0' id='title' name='title' value='${trade.title}'/>
+					<input type='text' class='form-control input-lg border-0' id='title' name='title' placeholder='글 제목' value='${trade.title}'/>
 				</div>
 				<div class='row m-1 align-items-center flex-column form-group'>
-					<select name='tradeCode' id='tradeCode' class='col mt-1 form-control selectpicker' value='${trade.tradeCode }' >
+					<select name='tradeCode' id='tradeCode' class='col mt-1 form-control selectpicker'value='${trade.tradeCode}' >
 						<option hidden>구매 / 판매</option>
 						<option selected>판 매</option>
 						<option>구 매</option>
@@ -125,12 +130,12 @@ function isVal(field) {
 					<input class='col mt-1 form-control' type='text' id='price'name='price' onkeyup='comma(this)'  placeholder='가격' min='0' value='${trade.price}'/>
 				</div>
 			<div class='row form-group border-top'>
-               <textarea id='contents' name='contents' class='col m-1 form-control border-0' rows='8'>${trade.contents}</textarea>
+               <textarea id='contents' name='contents' class='col m-1 form-control border-0' rows='8' placeholder='글내용'>${trade.contents}</textarea>
             </div>
 				
 				<small id='errMsg' class='row justify-content-center msg'></small>
 				<div class='row mt-3 p-3 border-top'>
-					<button  type='button' class='btn btn-light border btn-block' id='fixBtn' name='fixBtn' href='view?tradeNum=${trade.tradeNum}'>완료</button>
+					<button  type='button' class='btn btn-light border btn-block' id='fixBtn' name='fixBtn' >완료</button>
 				</div>
 			</form>
 		</div>

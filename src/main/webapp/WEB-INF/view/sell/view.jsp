@@ -122,7 +122,7 @@ img {
 			</div>
 		</div>
 	</header>
-
+<form method='post'>
 	<div class='container'>
 		<div id='mainContent' class='row'>
 			<div id='productImg' class='col carousel'>
@@ -130,8 +130,7 @@ img {
 						<img src='<c:url value="/attach/${trade.tradeImgFileName}"/>' class='w-75 h-auto'/>
 				</div>
 			</div>
-		</div>
-		
+		</div>>	
 		<div class='row pt-4 pb-4'>
 			<div class='col-12'>
 				<strong class='d-block '>${trade.title}</strong>
@@ -156,7 +155,7 @@ img {
 						<i class="fa-solid fa-ellipsis-vertical fa-lg"></i>
 					</button>
 					<div class='dropdown-menu w-50'>
-						<a href='#' class='dropdown-item'>수정</a><hr>
+						<a class='dropdown-item' href='fix?tradeNum=${trade.tradeNum}'>수정</a><hr>
 						<button type='button' id='delPost' class='dropdown-item delContent'>삭제</button><hr>
 						<button type='button' class='dropdown-item'>거래완료</button>
 					</div>
@@ -177,7 +176,7 @@ img {
 			</div>
 		</div>
 	</div>
-	
+</form>
 	<div id='commentArea' class='container mt-4 mb-5'>
 		<div id='commentTitle' class='row p-3'>
 			<span class='h5'>댓글</span>
