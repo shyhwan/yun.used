@@ -11,26 +11,60 @@
 <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js'></script>
 <script src='https://kit.fontawesome.com/449f39a7b2.js' crossorigin='anonymous'></script>
 <script>
-$(() => {
-$('#addCommentBtn').click(() => {
-	let comment = $('#commentText').val()
-	let userNickName = $('#userId').text()
-	let time = new Date()
+function commentList() {
+	$('#commentList').empty()
+	
+	$.ajax({
+		url: '/comment/list/report/' + ${report.reportNum},
+	}).done(comments => {
+		if(comments.length) {
+			const commentList = []
+			
+			$.each(comments, (i, comment) => {
+				commentList.unshift(
+					`<li class='col-12 mt-3 border-bottom'>
+						<div class='row justify-content-between align-items-center'>
+						<div class='col'>
+							<small class='pr-3'>\${comment.userId}</small>
+							<time class='border-left small pl-3'>
+								\${comment.commentRegDate}
+							</time>
+							<p class='mt-2 d-block'>
+								\${comment.contents}
+							</p>
+						</div>
+					</div>
+					</li>`)
+			})
+			
+			$('#commentList').append(commentList.join(''));
+		} else {
+			$('#commentList').empty()
+			$('#commentList').append('<li class="text-center mt-3"><span>댓글을 달아주세요.</span></li>')
+		}
+	})		
+}
 
-	$('#comment').append(`<li class='col-12 mt-3 border-bottom'>
-							<div class='row justify-content-start'>
-								<span class='col-4'>${userNickName}</span>
-								<time class='col small'>
-									${time.toLocaleTimeString([], {timeStyle: 'short'})}
-								</time>
-							</div>
-							<div class='row mt-2'>
-								<p class='col'>${comment}</p>
-							</div>
-						</li>`)
-						
-	$('#commentText').val('')					
-})
+$(() => {
+	commentList()
+	
+		$('#addCommentBtn').click(() => {
+		if($('#commentText').val() == null) {
+			$('#commentText').focus()
+		} else {
+			$.ajax({
+				url: '/comment/add',
+				method: 'post',
+				contentType: 'application/json', 
+				data: JSON.stringify({
+					userId: '${userId}',
+					reportNum: '${report.reportNum}',
+					contents: $('#commentText').val()
+				})
+			}).done(commentList)
+			$('#commentText').val('')
+		}
+	})
 })
 </script>
 <style>
@@ -101,16 +135,8 @@ th {
 					<i class="fa-solid fa-paper-plane"></i>
 				</button>
 			</form>
-			<ul id='comment' class='row list-unstyled border-bottom'>
-				<li class='col-12 mt-3 border-bottom'>
-					<div class='row justify-content-start'>
-						<span class='col-4'>관리자</span>
-						<time class='col small'>10:25</time>
-					</div>
-					<div class='row mt-2'>
-						<p class='col'>신고 접수 되었습니다.</p>
-					</div>
-				</li>
+			<ul id='commentList' class='row list-unstyled border-bottom'>
+				
 			</ul>
 		</div>
 	</div>
