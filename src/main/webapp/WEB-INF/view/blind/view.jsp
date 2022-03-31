@@ -4,12 +4,57 @@
 <title>VIEWBLIND</title>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <link rel='stylesheet' href='http://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css'/>
-<link rel='stylesheet' href='../res/style.css'>
+<link rel='stylesheet' href='/res/style.css'>
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 <script src='https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js'></script>
 <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js'></script>
 <script src='https://kit.fontawesome.com/449f39a7b2.js' crossorigin='anonymous'></script>
 <script>
+function commentList() {
+	$('#commentList').empty()
+	
+	$.ajax({
+		url: '/comment/list/blind/' + ${blind.blindNum},
+	}).done(comments => {
+		if(comments.length) {
+			const commentList = []
+			
+			$.each(comments, (i, comment) => {
+				commentList.unshift(
+					`<li class='col-12 mt-2 border-bottom'>
+						<div class='row justify-content-between align-items-center'>
+							<div class='col'>
+								<input id='commentNum' value='\${comment.commentNum}'/>
+								<small class='pr-3'>\${comment.userId}</small>
+								<time class='border-left small pl-3'>
+									\${comment.commentRegDate}
+								</time>
+								<p class='mt-2 d-block'>
+									\${comment.contents}
+								</p>
+							</div>
+							<button type='button' class='col-1 btn' data-toggle='dropdown'>
+								<i class="fa-solid fa-ellipsis-vertical"></i>
+							</button>
+							<div class='dropdown-menu w-25'>
+								<button type='button' class='dropdown-item'>수정</button><hr>
+								<button type='button' id='delComment' class='dropdown-item delContent'>삭제</button> 
+							</div>		
+		                    <button id='likeBtn1' type='button' class='btn'>
+		                        <i class="fa-regular fa-thumbs-up"></i>
+		                    </button>
+						</div>
+					</li>`)
+			})
+			
+			$('#commentList').append(commentList.join(''));
+		} else {
+			$('#commentList').empty()
+			$('#commentList').append('<li class="text-center mt-3"><span>댓글을 달아주세요.</span></li>')
+		}
+	})		
+}
+
 function checkwriter() {
 	if('${userId}' != '${blind.userId}') {
 		$('.editBtn').hide()
@@ -18,9 +63,29 @@ function checkwriter() {
 
 $(() => {
 	checkwriter()
+	commentList()
+	
+	$('#addCommentBtn').click(() => {
+		if($('#commentText').val() == null) {
+			$('#commentText').focus()
+		} else {
+			$.ajax({
+				url: '/comment/add',
+				method: 'post',
+				contentType: 'application/json', 
+				data: JSON.stringify({
+					userId: '${userId}',
+					blindNum: '${blind.blindNum}',
+					contents: $('#commentText').val()
+				})
+			}).done(commentList)
+			$('#commentText').val('')
+		}
+	})
 	
 	$('#delPost').click(() => {
 		$('#modalBtn').show()
+		$('#delCommentOkBtn').hide()
 		$('#modal').modal()
 	})
 
@@ -33,11 +98,33 @@ $(() => {
 			location.href='/blind'	
 		})
 	})
+	
+	$(document).on('click', '#delComment', function() {
+		const commentNum = $(this).parent().parent().find('#commentNum').val();
+		$('#modalBtn').show()
+		$('#delOkBtn').hide()
+		$('#modal').modal()
+		
+	
+		$('#delCommentOkBtn').click(() => {
+			console.log(commentNum);
+			$('#modal').modal('hide')
+			$.ajax({
+				url: '/comment/del/' + commentNum,
+				method: 'delete'
+			}).done(commentList)
+		})
+	})
 })
 </script>
 <style>
 .fa-rectangle-list {
 	color: black;
+}
+
+#commentNum {
+	visibility: hidden;
+	width: 0rem;
 }
 </style>
 </head>
@@ -92,52 +179,13 @@ $(() => {
 				</div>
 			</div>
 			<form class='row form m-1 justify-content-between  pb-2 border-bottom'>
-				<input type='text' class='col-10 form-control' placeholder='댓글을 입력해주세요.'/>
-				<button type='button' class='col-2 form-control'>
+				<input id='commentText' type='text' class='col-10 form-control' placeholder='댓글을 입력해주세요.'/>
+				<button id='addCommentBtn' type='button' class='col-2 form-control'>
 					<i class="fa-solid fa-paper-plane"></i>
 				</button>
 			</form>
-			<ul id='comment' class='row flex-column pl-3 pr-2 mt-2 list-unstyled align-items-center border-bottom'>
-				<li class='col mt-3 border-bottom'>
-					<div class='row justify-content-between align-items-center'>
-						<div class='col'>
-							<time class='time small d-block'>1시간 전</time>
-							<p class='mt-2'>
-								좋겠다 강아지.....
-							</p>
-						</div>
-						<button id='likeBtn1' type='button' class='btn'>
-							<i class="fa-regular fa-thumbs-up"></i>
-						</button>
-						<button type='button' class='col-1 btn' data-toggle='dropdown'>
-							<i class="fa-solid fa-ellipsis-vertical"></i>
-						</button>
-						<div class='dropdown-menu w-25'>
-							<button type='button' class='dropdown-item'>수정</button><hr>
-							<button type='button' id='delComment' class='dropdown-item delContent'>삭제</button>
-						</div>
-					</div>
-				</li>
-				<li class='col mt-3 border-bottom'>
-					<div class='row justify-content-between align-items-center'>
-						<div class='col'>
-							<time class='time small d-block'>20분 전</time>
-							<p class='mt-2'>
-								저희 집 강아지도 귀여운데 ㅎㅎ
-							</p>
-						</div>
-						<button id='likeBtn1' type='button' class='btn'>
-							<i class="fa-regular fa-thumbs-up"></i>
-						</button>
-						<button type='button' class='col-1 btn' data-toggle='dropdown'>
-							<i class="fa-solid fa-ellipsis-vertical"></i>
-						</button>
-						<div class='dropdown-menu w-25'>
-							<button type='button' class='dropdown-item'>수정</button><hr>
-							<button type='button' id='delComment' class='dropdown-item delContent'>삭제</button>
-						</div>
-					</div>		
-				</li>
+			<ul id='commentList' class='row flex-column pl-3 pr-2 mt-2 list-unstyled align-items-center border-bottom'>
+				
 			</ul>
 		</div>	
 	</div>
@@ -189,6 +237,7 @@ $(() => {
 				<div id='modalBtn' class='modal-footer'>
 					<button type='button' class='btn btn-light' data-dismiss="modal">아니오</button>
 					<button type='button' id='delOkBtn' class='btn yesBtn' data-dismiss="modal">예</button>
+					<button type='button' id='delCommentOkBtn' class='btn yesBtn' data-dismiss="modal">예</button>
 				</div>
 			</div>
 		</div>

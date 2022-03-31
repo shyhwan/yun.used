@@ -13,27 +13,37 @@ public class CommentDaoImpl implements CommentDao{
 	@Autowired private CommentMap commentMap;
 	
 	@Override
-	public List<Comment> selectComments() {
-		return commentMap.selectComments();
+	public List<Comment> selectTradeComments(int tradeNum) {
+		return commentMap.selectTradeComments(tradeNum);
 	} 
 	
 	@Override
-	public Comment selectComment(int commentNum) {
-		return commentMap.selectComment(commentNum);
+	public List<Comment> selectBlindComments(int blindNum) {
+		return commentMap.selectBlindComments(blindNum);
 	} 
 	
 	@Override
-	public void insertComment(Comment comment) {
-		commentMap.insertComment(comment);
+	public List<Comment> selectReportComments(int reportNum) {
+		return commentMap.selectReportComments(reportNum);
+	} 
+
+	@Override
+	public void insertTradeComment(Comment comment) {
+		commentMap.insertTradeComment(comment);
 	}
 	
+	@Override
+	public void insertBlindComment(Comment comment) {
+		commentMap.insertBlindComment(comment);
+	}
+	
+	@Override
+	public void insertReportComment(Comment comment) {
+		commentMap.insertReportComment(comment);
+	}
+
 	@Override
 	public void deleteComment(int commentNum) {
 		commentMap.deleteComment(commentNum);
 	} 
-	
-	@Override
-	public void editComment(Comment comment) {
-		commentMap.editComment(comment);
-	}
 }

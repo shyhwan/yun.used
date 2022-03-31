@@ -11,5 +11,5 @@ import yunseunghwan.used.domain.Chat;
 public interface ChatService {
 	List<Chat> getChats(String traderId);
 	ModelAndView getChat(int roomNum, ModelAndView mv, HttpSession session);
-	void addChat(Chat chat, ModelAndView mv, HttpSession session);
+	ModelAndView addChat(Chat chat, ModelAndView mv);
 }

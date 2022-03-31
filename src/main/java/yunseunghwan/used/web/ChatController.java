@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,10 +35,10 @@ public class ChatController {
 		String traderId = (String) session.getAttribute("userId");
 		return chatService.getChats(traderId);
 	}
-	
+
 	@PostMapping("add")
-	public void startChat(@RequestBody Chat chat, ModelAndView mv, HttpSession session) {
-		chatService.addChat(chat, mv, session);
+	public ModelAndView startChat(@RequestBody Chat chat, ModelAndView mv) {
+		return chatService.addChat(chat, mv);
 	}
 	
 	@GetMapping("room")

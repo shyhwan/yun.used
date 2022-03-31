@@ -11,39 +11,50 @@
 <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js'></script>
 <script src='https://kit.fontawesome.com/449f39a7b2.js' crossorigin='anonymous'></script>
 <script>
-
-$(() => {
-	$('#addCommentBtn').click(() => {
-		let comment = $('#commentText').val();
-		let userNickName = $('#userId').text();
-		let time = new Date() ;
-
-		$('#comment').append(`<li class='col-12 border-top'>
-								<div class='row justify-content-between align-items-center'>
-									<div class='col mt-2'>
-										<small><span class='pr-3'>${userNickName}</span></small>
-										<time class='col small border-left'>
-											${time.toLocaleTimeString([], {timeStyle: 'short'})}
-										</time>
-										<div class='row mt-2'>
-											<p class='col'>${comment}</p>  
-										</div>
-									</div>
-									<button id='likeBtn' type='button' class='btn'>
-										<i class="fa-regular fa-thumbs-up"></i>
-									</button>
-									<button type='button' class='col-1 btn btn-light' data-toggle='dropdown'>
-										<i class="fa-solid fa-ellipsis-vertical"></i>
-									</button>
-									<div class='dropdown-menu w-25'>
-										<button type='button' class='dropdown-item'>수정</button><hr>
-										<button type='button' id='delComment' class='dropdown-item delContent'>삭제</button>
-									</div>
-								</div>
-							</li>`)			
-		$('#commentText').val('')					
-	})
-})
+function commentList() {
+	$('#commentList').empty()
+	
+	$.ajax({
+		url: '/comment/list/trede/' + ${trade.tradeNum},
+	}).done(comments => {
+		if(comments.length) {
+			const commentList = []
+			
+			$.each(comments, (i, comment) => {
+				commentList.unshift(
+					`<li class='col-12 mt-2 border-bottom'>
+						<div class='row justify-content-between align-items-center'>
+							<div class='col'>
+								<input id='commentNum' value='\${comment.commentNum}'/>
+								<small class='pr-3'>\${comment.userId}</small>
+								<time class='border-left small pl-3'>
+									\${comment.commentRegDate}
+								</time>
+								<p class='mt-2 d-block'>
+									\${comment.contents}
+								</p>
+							</div>
+							<button type='button' class='col-1 btn' data-toggle='dropdown'>
+								<i class="fa-solid fa-ellipsis-vertical"></i>
+							</button>
+							<div class='dropdown-menu w-25'>
+								<button type='button' class='dropdown-item'>수정</button><hr>
+								<button type='button' id='delComment' class='dropdown-item delContent'>삭제</button> 
+							</div>		
+		                    <button id='likeBtn1' type='button' class='btn'>
+		                        <i class="fa-regular fa-thumbs-up"></i>
+		                    </button>
+						</div>
+					</li>`)
+			})
+			
+			$('#commentList').append(commentList.join(''));
+		} else {
+			$('#commentList').empty()
+			$('#commentList').append('<li class="text-center mt-3"><span>댓글을 달아주세요.</span></li>')
+		}
+	})		
+}
 
 function checkWish() {
 	let checkWish = $('.fa-heart').hasClass('on')
@@ -69,6 +80,42 @@ function checkwriter() {
 
 $(() => {
 	checkwriter()
+	commentList()
+	
+	$('#addCommentBtn').click(() => {
+		if($('#commentText').val() == null) {
+			$('#commentText').focus()
+		} else {
+			$.ajax({
+				url: '/comment/add',
+				method: 'post',
+				contentType: 'application/json', 
+				data: JSON.stringify({
+					userId: '${userId}',
+					tradeNum: '${trade.tradeNum}',
+					contents: $('#commentText').val()
+				})
+			}).done(commentList)
+			$('#commentText').val('')
+		}
+	})
+	
+ 	$('.goChatBtn').click(() => {
+ 		if(!'${userId}') {
+ 			location.href='/user/login'
+ 		} else {
+			$.ajax({
+				url: '/chat/add',
+				method: 'post',
+				contentType: 'application/json',
+				data: JSON.stringify({
+					traderId: '${trade.traderId}',
+					userId: '${userId}',
+					tradeNum: '${trade.tradeNum}'			
+				})
+			})
+		}
+	})
 	
 	$('#checkHeart').click(() => {
         $('.fa-heart').toggleClass('on', 'off')
@@ -79,6 +126,7 @@ $(() => {
 	
 	$('#delPost').click(() => {
 		$('#modalBtn').show()
+		$('#delCommentOkBtn').hide()
 		$('#modal').modal()
 	})
 
@@ -89,6 +137,23 @@ $(() => {
 			method: 'delete'
 		}).done(function() {
 			location.href='/sell'	
+		})
+	})
+	
+	$(document).on('click', '#delComment', function() {
+		const commentNum = $(this).parent().parent().find('#commentNum').val();
+		$('#modalBtn').show()
+		$('#delOkBtn').hide()
+		$('#modal').modal()
+		
+	
+		$('#delCommentOkBtn').click(() => {
+			console.log(commentNum);
+			$('#modal').modal('hide')
+			$.ajax({
+				url: '/comment/del/' + commentNum,
+				method: 'delete'
+			}).done(commentList)
 		})
 	})
 })
@@ -109,6 +174,10 @@ img {
 	border-radius: 8px;
 }
 
+#commentNum {
+	visibility: hidden;
+	width: 0rem;
+}
 </style>
 </head>
 <body>
@@ -187,65 +256,24 @@ img {
 				<i class="fa-solid fa-paper-plane"></i>
 			</button>
 		</form>
-		<ul id='comment' class='row list-unstyled border'>
-			<li class='col-12 mt-2 border-bottom'>
-				<div class='row justify-content-between align-items-center'>
-					<div class='col'>
-						<small class='pr-3'>네현이</small>
-						<small class='border-left pl-3'>1시간 전</small>
-						<p class='mt-2 d-block'>
-							채팅 드렸어요 확인해주세요.
-						</p>
-					</div>
-                    <button id='likeBtn1' type='button' class='btn'>
-                        <i class="fa-regular fa-thumbs-up"></i>
-                    </button>
-					<button type='button' class='col-1 btn' data-toggle='dropdown'>
-						<i class="fa-solid fa-ellipsis-vertical"></i>
-					</button>
-					<div class='dropdown-menu w-25'>
-						<button type='button' class='dropdown-item'>수정</button><hr>
-						<button type='button' id='delComment' class='dropdown-item delContent'>삭제</button> 
-					</div>		
-				</div>
-			</li>
-			<li class='col-12 mt-2'>
-				<div class='row justify-content-between align-items-center'>
-					<div class='col'>
-						<small class='pr-3'>유공이</small>
-						<small class='border-left pl-3'>20분 전</small>
-						<p class='mt-2 d-block'>
-							동숲이 재밌긴 하죠!!
-						</p>
-					</div>
-					<button id='likeBtn' type='button' class='btn'>
-                        <i class="fa-regular fa-thumbs-up"></i>
-                    </button>
-					<button type='button' class='col-1 btn' data-toggle='dropdown'>
-						<i class="fa-solid fa-ellipsis-vertical"></i>
-					</button>
-					<div class='dropdown-menu w-25'>
-						<button type='button' class='dropdown-item'>수정</button><hr>
-						<button type='button' id='delComment' class='dropdown-item delContent'>삭제</button>
-					</div>		
-				</div>
-			</li>
+		<ul id='commentList' class='row list-unstyled border'>
+			
 		</ul>
 	</div>
 
 	<div  class='container-fulid'>
-		<div id='chatBtnCom'  class='row fixed-bottom d-none d-md-inline'>		
+		<div id='chatBtnCom' class='goChatBtn row fixed-bottom d-none d-md-inline'>		
 			<div class='col'>
-				<a href="../chat/02.html" class='btn p-2'>
+				<a class='btn p-2'>
 					<i class="fa-solid fa-comments fa-xl"></i>
 					<strong>채팅 시작하기</strong>
 				</a>
 			</div>
 		</div>
 		
-		<div id='chatBtn'  class='row fixed-bottom d-sm-none'>		
+		<div id='chatBtn' onclick='location.href="/chat/room"' class='goChatBtn row fixed-bottom d-sm-none'>		
 			<div class='col'>
-				<a href="../chat/02.html" class='btn btn-block p-2'>
+				<a  class='btn btn-block p-2'>
 					<i class="fa-solid fa-comments fa-xl"></i>
 					<strong class='ml-3'>채팅 시작하기</strong>
 				</a>
@@ -300,6 +328,7 @@ img {
 				<div id='modalBtn' class='modal-footer'>
 					<button type='button' class='btn btn-light' data-dismiss="modal">아니오</button>
 					<button type='button' id='delOkBtn' class='btn yesBtn' data-dismiss="modal">예</button>
+					<button type='button' id='delCommentOkBtn' class='btn yesBtn' data-dismiss="modal">예</button>
 				</div>
 			</div>
 		</div>

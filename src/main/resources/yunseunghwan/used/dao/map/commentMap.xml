@@ -2,15 +2,41 @@
 <!DOCTYPE mapper PUBLIC '-//mybatis.org/DTD Mapper 3.0//EN'
 	'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
 <mapper namespace='yunseunghwan.used.dao.map.CommentMap'>
-	<select id='selectComments' resultType='comment'>
-		select *
+	<select id='selectTradeComments' resultType='comment'>
+		select comment_num, user_id, trade_num, comment_reg_date, contents, comment_like_count
 		from comments
-		order by trade_num
+		where trade_num = #{tradeNum}
 	</select>
 	
-	<select id='selectComment' resultType='comment'>
-		select *
+	<select id='selectBlindComments' resultType='comment'>
+		select comment_num, user_id, blind_num, comment_reg_date, contents, comment_like_count
 		from comments
+		where blind_num = #{blindNum}
+	</select>
+	
+	<select id='selectReportComments' resultType='comment'>
+		select comment_num, user_id, report_num, comment_reg_date, contents, comment_like_count
+		from comments
+		where report_num = #{reportNum}
+	</select>
+
+	<insert id='insertTradeComment'>
+		insert into comments(comment_num, user_id, trade_num, contents)
+		values(comment_num_seq.nextval, #{userId}, #{tradeNum}, #{contents})
+	</insert>
+	
+	<insert id='insertBlindComment'>
+		insert into comments(comment_num, user_id, blind_num, contents)
+		values(comment_num_seq.nextval, #{userId}, #{blindNum}, #{contents})
+	</insert>
+	
+	<insert id='insertReportComment'>
+		insert into comments(comment_num, user_id, report_num, contents)
+		values(comment_num_seq.nextval, #{userId}, #{reportNum}, #{contents})
+	</insert>
+	
+	<delete id='deleteComment'>
+		delete comments
 		where comment_num = #{commentNum}
-	</select>   
+	</delete>
 </mapper> 

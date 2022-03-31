@@ -24,7 +24,7 @@ function buyList() {
 				buyList.unshift(
 					`<li class='row border-bottom pt-3  pb-3 align-items-center'>
 						<div class='ml-3 text-center'>
-							3
+							\${++i}
 						</div>
 						<div class='col-3 text-center'>
 						<img src=<c:url value="/attach/\${buy.tradeImgFileName}"/> class='productMin'/>

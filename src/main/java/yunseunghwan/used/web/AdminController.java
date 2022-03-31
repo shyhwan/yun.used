@@ -2,19 +2,30 @@ package yunseunghwan.used.web;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import yunseunghwan.used.domain.Report;
+import yunseunghwan.used.domain.Trade;
 import yunseunghwan.used.domain.User;
+import yunseunghwan.used.service.ReportService;
+import yunseunghwan.used.service.TradeService;
 import yunseunghwan.used.service.UserService;
 
 @RestController
 @RequestMapping("admin")
 public class AdminController {
 	@Autowired private UserService userService;
+	@Autowired private ReportService reportService;
+	@Autowired private TradeService tradeService;
+	@Value("${attachPath}") private String attachPath;
 	
 	@GetMapping("users")
 	public ModelAndView Users(ModelAndView mv) {
@@ -28,8 +39,43 @@ public class AdminController {
 	}
 	
 	@GetMapping("userManager")
-	public ModelAndView UserProfile(ModelAndView mv) {
-		mv.setViewName("admin/user/userManager");
+	public ModelAndView UserProfile(@RequestParam ModelAndView mv, @RequestParam User user, @RequestParam HttpSession session) {
+		System.out.println("성공");
+		return userService.getAdminUser(user, mv, session);
+	}
+	
+	@GetMapping("report")
+	public ModelAndView Reports(ModelAndView mv) {
+		mv.setViewName("admin/report/report");
 		return mv;
 	}
+	
+	@GetMapping("reportList")
+	public List<Report> reportList() {
+		return reportService.getAdminReports();
+	}
+	
+	@GetMapping("reportManager")
+	public ModelAndView reportView(ModelAndView mv, Report report, HttpSession session) {
+		System.out.println("성공");
+		return reportService.getAdminReport(mv, report, session);
+	}
+	
+	@GetMapping("trade")
+	public ModelAndView trade(ModelAndView mv) {
+		mv.setViewName("admin/trade/trade");
+		return mv;
+	}
+	
+	@GetMapping("tradeList")
+	public List<Trade> tradeList() {
+		return tradeService.getAdminTrades();
+	}
+	
+	@GetMapping("tradeManager")
+	public ModelAndView tradeView(ModelAndView mv) {
+		mv.setViewName("admin/trade/tradeManager");
+		return mv;
+	}
+	
 }

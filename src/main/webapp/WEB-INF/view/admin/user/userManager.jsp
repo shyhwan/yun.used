@@ -39,16 +39,16 @@ hr {
             <nav class='nav col-2 d-flex justify-content-center align-items-start border-right text-center'>
                 <ul class='row flex-column justify-content-center list-unstyled'>
                     <li class='m-4 text-center'>
-                        <a href='../admini'>메인</a>
+                        <a href='../admin'>메인</a>
                     </li>
                     <li class='m-4 text-center'>
                         <a href='users'>회원 관리</a>
                     </li>
                     <li class='m-4 text-center'>
-                        <a href='../sell/'>게시판 관리</a>
+                        <a href='../admin/trade'>게시판 관리</a>
                     </li>
                     <li class='m-4 text-center'>
-                        <a href='../report/'>신고 관리</a>
+                        <a href='../admin/report'>신고 관리</a>
                     </li>
                 </ul>
             </nav>
@@ -63,31 +63,31 @@ hr {
                         <div class='row justify-content-start border-bottom p-3'>
                             <label for='userId' class='col-3'>이름</label>
                             <div class=''>
-                                <input id='userName' type='text' class='form-control col' value='김하늘' readonly/>
+                                <input id='userName' type='text' class='form-control col' value='${user.userName}' readonly/>
                             </div>
                         </div>
                         <div class='row justify-content-start border-bottom p-3'>
                             <label for='userId' class='col-3'>아이디</label>
                             <div class=''>
-                                <input id='userId' type='email' class='form-control col' value='${userId}'/>
+                                <input id='userId' type='email' class='form-control col' value='${user.userId}'/>
                             </div>
                         </div>
                         <div class='row justify-content-start border-bottom p-3'>
                             <label for='nickName' class='col-3'>닉네임</label>
                             <div class=''>
-                                <input id='nickName' type='text' class='form-control col' value='${user.userId}'/>
+                                <input id='nickName' type='text' class='form-control col' value='${user.nickName}'/>
                             </div>
                         </div>
                         <div class='row justify-content-start border-bottom p-3'>
                             <label for='phoneNum' class='col-3'>연락처</label>
                             <div class=''>
-                                <input id='phoneNum' type='text' class='form-control' value='010-1234-5678'/>
+                                <input id='phoneNum' type='text' class='form-control' value='${user.phoneNum}'/>
                             </div>
                         </div>
                         <div class='row justify-content-start border-bottom p-3'>
                             <label for='userPw' class='col-3'>비밀번호</label>
                             <div class=''>
-                                <input id='userPw' type='text' class='form-control col' value='rlagksmf12' readonly/>
+                                <input id='userPw' type='text' class='form-control col' value='${user.pw}' readonly/>
                             </div>
                         </div>
                         <div class='row justify-content-end form-group m-2'>

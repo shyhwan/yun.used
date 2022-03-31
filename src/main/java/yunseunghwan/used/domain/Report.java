@@ -15,6 +15,6 @@ public class Report {
 	private String accusedName;
 	private String reportImgFileName;
 	private MultipartFile reportImgFile;
-	private LocalDate regDate;
+	private LocalDate reportRegDate;
 	
 }

@@ -29,6 +29,11 @@ public class TradeServiceImpl implements TradeService{
 	}
 	
 	@Override
+	public List<Trade> getAdminTrades() {
+		return tradeDao.selectAdminTrades();
+	}
+	
+	@Override
 	public ModelAndView getTrade(Trade trade, ModelAndView mv, HttpSession session) {
 		String userId = (String) session.getAttribute("userId");
 		Trade tradeVal = tradeDao.seletTrade(trade);

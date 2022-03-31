@@ -15,6 +15,12 @@
 		where trade_num = #{tradeNum}
 	</select>
 	
+	<select id='selectAdminTrades' resultType='trade'>
+		select *
+		from trades
+		order by trade_num
+	</select>
+	
 	<insert id='insertTrade'>
 		insert into trades(trade_num, trader_id, trade_code, product_code, title,
 			contents, trade_img_file_name, location, price)
