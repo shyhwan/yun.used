@@ -199,7 +199,7 @@ img {
 					<img src='<c:url value="/attach/${trade.tradeImgFileName}"/>' class='w-75 h-auto'/>
 				</div>
 			</div>
-		</div>>	
+		</div>
 		<div class='row pt-4 pb-4'>
 			<div class='col-12'>
 				<strong class='d-block '>${trade.title}</strong>

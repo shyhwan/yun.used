@@ -61,8 +61,8 @@ public class AdminController {
 	}
 	
 	@GetMapping("tradeList")
-	public List<Trade> tradeList() {
-		return tradeService.getAdminTrades();
+	public List<Trade> tradeList(Trade trade) {
+		return tradeService.getAdminTrades(trade);
 	}
 	
 	@GetMapping("tradeManager")

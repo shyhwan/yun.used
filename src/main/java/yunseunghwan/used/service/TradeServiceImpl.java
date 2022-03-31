@@ -29,14 +29,9 @@ public class TradeServiceImpl implements TradeService{
 	}
 	
 	@Override
-	public List<Trade> getAdminTrades() {
-		return tradeDao.selectAdminTrades();
-	}
-	
-	@Override
 	public ModelAndView getTrade(Trade trade, ModelAndView mv, HttpSession session) {
 		String userId = (String) session.getAttribute("userId");
-		Trade tradeVal = tradeDao.seletTrade(trade);
+		Trade tradeVal = tradeDao.selectTrade(trade);
 		String traderId = tradeVal.getTraderId();
 		User nickName = userDao.selectUser(traderId);		
 		
@@ -53,15 +48,6 @@ public class TradeServiceImpl implements TradeService{
 	}
 	
 	@Override
-	public ModelAndView getAdminTrade(ModelAndView mv, Trade trade) {
-		Trade tradeVal = tradeDao.seletTrade(trade);
-		
-		mv.addObject("trade", tradeVal);
-		mv.setViewName("admin/trade/tradeManager");
-		return mv;
-	}
-	
-	@Override
 	public void addTrade(HttpSession session, Trade trade) {
 		String userId = (String) session.getAttribute("userId");
 		String fileName = trade.getTradeImgFile().getOriginalFilename();
@@ -73,7 +59,6 @@ public class TradeServiceImpl implements TradeService{
 		saveFile(attachPath + "/" + fileName, trade.getTradeImgFile());
 	}
 	
-<<<<<<< HEAD
 	@Override
 	public void fixTrade(Trade trade, HttpSession session) {
 		tradeDao.updateTrade(trade);
@@ -82,27 +67,19 @@ public class TradeServiceImpl implements TradeService{
 	
 	@Override 
 	public Trade fixView(int tradeNum) {
-		return tradeDao.seletTrade(tradeNum);
+		return tradeDao.selectTrade(tradeNum);
 	}
 	
-=======
->>>>>>> branch 'master' of https://github.com/shyhwan/yun.used.git
 	private void saveFile(String fileName, MultipartFile file) {
 		try {
 			file.transferTo(new File(fileName));
 		} catch(IOException e) {}
 	}
-
-	@Override
-	public void fixTrade(Trade trade, HttpSession session) {
-		tradeDao.updateTrade(trade);
-		
-	}
 	
 	@Override 
 	public ModelAndView fixView(ModelAndView mv, Trade trade, HttpSession session) {
 		User user = (User) session.getAttribute("user");
-		Trade tradeVal = tradeDao.seletTrade(trade);
+		Trade tradeVal = tradeDao.selectTrade(trade);
 		String userId = tradeVal.getTraderId();
 		User nickName = userDao.selectUser(userId);		
 		
@@ -122,5 +99,20 @@ public class TradeServiceImpl implements TradeService{
 	public void delTrade(int tradeNum) {
 		tradeDao.deleteTrade(tradeNum);
 	}
+
+	@Override
+	public List<Trade> getAdminTrades(Trade trade) {
+		return tradeDao.selectAdminTrades(trade);
+	}
+
+	@Override
+	   public ModelAndView getAdminTrade(ModelAndView mv, Trade trade) {
+	      Trade tradeVal = tradeDao.selectTrade(trade);
+	      
+	      mv.addObject("trade", tradeVal);
+	      mv.setViewName("admin/trade/tradeManager");
+	      return mv;
+	   }
 }
+
 

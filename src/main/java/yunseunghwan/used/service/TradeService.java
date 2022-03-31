@@ -10,14 +10,14 @@ import yunseunghwan.used.domain.Trade;
 
 public interface TradeService {
 	List<Trade> getTrades(String tradeCode);
-	List<Trade> getAdminTrades();
+	List<Trade> getAdminTrades(Trade trade);
 	ModelAndView getTrade(Trade trade, ModelAndView mv, HttpSession session);
 	ModelAndView getAdminTrade(ModelAndView mv, Trade trade);
 	void addTrade(HttpSession session, Trade trade);
 	void fixTrade(Trade trade, HttpSession session);
-	Trade fixView(int tradeNum);
 	void delTrade(int tradeNum);
 	ModelAndView fixView(ModelAndView mv, Trade trade, HttpSession session);
+	Trade fixView(int tradeNum);
 	
 	
 }
