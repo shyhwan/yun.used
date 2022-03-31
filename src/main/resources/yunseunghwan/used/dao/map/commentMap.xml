@@ -35,12 +35,6 @@
 		values(comment_num_seq.nextval, #{userId}, #{reportNum}, #{contents})
 	</insert>
 	
-	<update id='updateComment'>
-		update comments
-		set 
-		where comment_num = #{commentNum}
-	</update>
-	
 	<delete id='deleteComment'>
 		delete comments
 		where comment_num = #{commentNum}

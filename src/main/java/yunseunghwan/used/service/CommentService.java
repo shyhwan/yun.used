@@ -11,7 +11,6 @@ public interface CommentService {
 	void addTradeComment(Comment comment);
 	void addBlindComment(Comment comment);
 	void addReportComment(Comment comment);
-	void fixComment(Comment comment);
 	void delComment(int commentNum);
 }
    

@@ -41,12 +41,7 @@ public class CommentServiceImpl implements CommentService{
 	public void addReportComment(Comment comment) {
 		commentDao.insertReportComment(comment);
 	}
-	
-	@Override
-	public void fixComment(Comment comment) {
-		commentDao.updateComment(comment);
-	}
-	
+
 	@Override
 	public void delComment(int commentNum) {
 		commentDao.deleteComment(commentNum);

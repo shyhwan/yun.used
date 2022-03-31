@@ -11,7 +11,6 @@ public interface CommentDao {
 	void insertTradeComment(Comment comment);
 	void insertBlindComment(Comment comment);
 	void insertReportComment(Comment comment);
-	void updateComment(Comment comment);
 	void deleteComment(int commentNum);
 }
  

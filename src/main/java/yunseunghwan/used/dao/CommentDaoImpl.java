@@ -41,12 +41,7 @@ public class CommentDaoImpl implements CommentDao{
 	public void insertReportComment(Comment comment) {
 		commentMap.insertReportComment(comment);
 	}
-		
-	@Override
-	public void updateComment(Comment comment) {
-		commentMap.updateComment(comment);
-	}
-	
+
 	@Override
 	public void deleteComment(int commentNum) {
 		commentMap.deleteComment(commentNum);
