@@ -8,7 +8,7 @@ import lombok.Data;
 public class Blind {
 	private int blindNum;
 	private String userId;
-	private LocalDate bolindRegDate;
+	private LocalDate blindRegDate;
 	private String title;
 	private String contents;
 	private int blindLikeCount;

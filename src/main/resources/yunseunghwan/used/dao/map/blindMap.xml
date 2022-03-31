@@ -21,8 +21,7 @@
 	
 	<update id='updateBlind'>
 		update blinds
-		set user_id = #{userId}, blind_reg_date = #{blindRegDate}, title = #{title}, 
-			contents = #{contents}, blind_like_count = #{blindLikeCount}
+		set user_id = #{userId}, title = #{title}, contents = #{contents}
 		where blind_num = #{blindNum}
 	</update>
 	

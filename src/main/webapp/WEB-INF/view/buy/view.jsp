@@ -56,22 +56,6 @@ function commentList() {
 	})		
 }
 
-function checkWish() {
-	let checkWish = $('.fa-heart').hasClass('on')
-
-	if(checkWish) {
-		$('.fa-heart').css('color', 'red')
-	} else {
-		$('.fa-heart').css('color', 'lightgray')
-	}
-}
-
-function checkRes() {
-	$('.resBtn').click(() => {
-		$('.resIcon').toggleClass('fa-regular, fa-solid')
-	}) 
-}
-
 function checkwriter() {
 	if('${userId}' != '${trade.traderId}') {
 		$('.writerBtn').hide()
@@ -116,14 +100,7 @@ $(() => {
 			})
  		}
 	})
-	
-	$('#checkHeart').click(() => {
-        $('.fa-heart').toggleClass('on', 'off')
-		checkWish()
-	})
 
-	checkRes()
-	
 	$('#delPost').click(() => {
 		$('#modalBtn').show()
 		$('#delCommentOkBtn').hide()
@@ -225,7 +202,7 @@ img {
 						<i class="fa-solid fa-ellipsis-vertical fa-lg"></i>
 					</button>
 					<div class='dropdown-menu w-50'>
-						<a href='#' class='dropdown-item'>수정</a><hr>
+						<a href='edit?tradeNum=${trade.tradeNum}' class='dropdown-item'>수정</a><hr>
 						<button type='button' id='delPost' class='dropdown-item delContent'>삭제</button><hr>
 						<button type='button' class='dropdown-item'>거래완료</button>
 					</div>
@@ -233,16 +210,10 @@ img {
 			</div>
 		</div>
 
-		<div class='row p-1 mt-4'>
-			<div class='col'>
-				<div class='media'>
-					<div class='media-body'>
-						<p>
-							${trade.contents}<br>
-						</p>
-					</div>
-				</div>
-			</div>
+		<div class='row p-2 mt-3 border'>
+			<p class='col'>
+				${trade.contents}
+			</p>
 		</div>
 	</div>
 	

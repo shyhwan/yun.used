@@ -19,7 +19,7 @@ public class TradeDaoImple implements TradeDao{
 	}
 	
 	@Override
-	public List<Trade> selectAdminTrades(Trade trade) {
+	public List<Trade> selectAdminTrades() {
 		return tradeMap.selectAdminTrades();
 	}
 	
@@ -42,13 +42,6 @@ public class TradeDaoImple implements TradeDao{
 	public void deleteTrade(int tradeNum) {
 		tradeMap.deleteTrade(tradeNum);
 	}
-
-	@Override
-	public Trade selectTrade(int tradeNum) {
-		return tradeMap.seletTrade(tradeNum);
-	}
-
-
 }
 
 

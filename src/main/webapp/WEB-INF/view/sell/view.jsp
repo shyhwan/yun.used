@@ -191,7 +191,7 @@ img {
 			</div>
 		</div>
 	</header>
-<form method='post'>
+
 	<div class='container'>
 		<div id='mainContent' class='row'>
 			<div id='productImg' class='col'>
@@ -224,28 +224,21 @@ img {
 						<i class="fa-solid fa-ellipsis-vertical fa-lg"></i>
 					</button>
 					<div class='dropdown-menu w-50'>
-						<a class='dropdown-item' href='fix?tradeNum=${trade.tradeNum}'>수정</a><hr>
+						<a class='dropdown-item' href='edit?tradeNum=${trade.tradeNum}'>수정</a><hr>
 						<button type='button' id='delPost' class='dropdown-item delContent'>삭제</button><hr>
 						<button type='button' class='dropdown-item'>거래완료</button>
 					</div>
 				</div>
 			</div>
 		</div>
-		<hr>
 
-		<div class='row p-1 mt-4'>
-			<div class='col'>
-				<div class='media'>
-					<div class='media-body'>
-						<p>
-							${trade.contents}<br>
-						</p>
-					</div>
-				</div>
-			</div>
+		<div class='row p-2 mt-3 border'>
+			<p class='col'>
+				${trade.contents}
+			</p>
 		</div>
 	</div>
-</form>
+
 	<div id='commentArea' class='container mt-4 mb-5'>
 		<div id='commentTitle' class='row p-3'>
 			<span class='h5'>댓글</span>

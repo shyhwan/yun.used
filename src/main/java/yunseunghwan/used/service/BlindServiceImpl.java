@@ -30,7 +30,6 @@ public class BlindServiceImpl implements BlindService{
 		mv.addObject("user", user);
 		mv.addObject("blind", blindVal);
 		mv.addObject("writeUserId", userId);
-		mv.setViewName("blind/view");
 		return mv;
 	}
 	

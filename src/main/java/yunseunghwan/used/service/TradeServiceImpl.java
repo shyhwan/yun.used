@@ -29,6 +29,11 @@ public class TradeServiceImpl implements TradeService{
 	}
 	
 	@Override
+	public List<Trade> getAdminTrades() {
+		return tradeDao.selectAdminTrades();
+	}
+	
+	@Override
 	public ModelAndView getTrade(Trade trade, ModelAndView mv, HttpSession session) {
 		String userId = (String) session.getAttribute("userId");
 		Trade tradeVal = tradeDao.selectTrade(trade);
@@ -38,12 +43,6 @@ public class TradeServiceImpl implements TradeService{
 		mv.addObject("userId", userId);
 		mv.addObject("trade", tradeVal);
 		mv.addObject("traderNickName", nickName.getNickName());
-		if(tradeVal.getTradeCode().equals("판매")) {
-			mv.setViewName("sell/view");
-		} else {
-			mv.setViewName("buy/view");			
-		}
-		
 		return mv;
 	}
 	
@@ -70,51 +69,30 @@ public class TradeServiceImpl implements TradeService{
 	
 	@Override
 	public void fixTrade(Trade trade, HttpSession session) {
+		String userId = (String) session.getAttribute("userId");
+
+		if(trade.getTradeImgFile() == null) {						
+			Trade getTrade = tradeDao.selectTrade(trade);
+			trade.setTradeImgFileName(getTrade.getTradeImgFileName());
+		} else {
+			String fileName = trade.getTradeImgFile().getOriginalFilename();
+			trade.setTraderId(userId);
+			trade.setTradeImgFileName(fileName);
+			saveFile(attachPath + "/" + fileName, trade.getTradeImgFile());
+		}
 		tradeDao.updateTrade(trade);
-		
 	}
-	
-	@Override 
-	public Trade fixView(int tradeNum) {
-		return tradeDao.selectTrade(tradeNum);
-	}
-	
+
 	private void saveFile(String fileName, MultipartFile file) {
 		try {
 			file.transferTo(new File(fileName));
 		} catch(IOException e) {}
 	}
-	
-	@Override 
-	public ModelAndView fixView(ModelAndView mv, Trade trade, HttpSession session) {
-		User user = (User) session.getAttribute("user");
-		Trade tradeVal = tradeDao.selectTrade(trade);
-		String userId = tradeVal.getTraderId();
-		User nickName = userDao.selectUser(userId);		
-		
-		mv.addObject("user", user);
-		mv.addObject("trade", tradeVal);
-		mv.addObject("traderNickName", nickName.getNickName());
-		if(tradeVal.getTradeCode().equals("판매")) {
-			mv.setViewName("sell/fix");
-		} else {
-			mv.setViewName("buy/fix");			
-		}
-		
-		return mv;
-	}
-	
+
 	@Override
 	public void delTrade(int tradeNum) {
 		tradeDao.deleteTrade(tradeNum);
 	}
-
-	@Override
-	public List<Trade> getAdminTrades(Trade trade) {
-		return tradeDao.selectAdminTrades(trade);
-	}
-
-
 }
 
 

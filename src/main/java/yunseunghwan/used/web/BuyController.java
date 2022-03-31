@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -54,7 +55,19 @@ public class BuyController {
 	
 	@GetMapping("view")
 	public ModelAndView tradeView(ModelAndView mv, HttpSession session, Trade trade) {
+		mv.setViewName("buy/view");
 		return tradeService.getTrade(trade, mv, session);
+	}
+	
+	@GetMapping("edit")
+	public ModelAndView editView(ModelAndView mv, Trade trade, HttpSession session) {
+		mv.setViewName("buy/edit");
+		return tradeService.getTrade(trade, mv, session);
+	}
+	
+	@PutMapping("fix") 
+	public void fixTrade(HttpSession session, ModelAndView mv, Trade trade){
+		tradeService.fixTrade(trade, session);
 	}
 	
 	@DeleteMapping("del/{tradeNum}")

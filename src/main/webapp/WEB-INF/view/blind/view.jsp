@@ -165,7 +165,7 @@ $(() => {
 						<i class="fa-solid fa-ellipsis-vertical fa-lg"></i>
 					</button>
 					<div class='dropdown-menu w-50'>
-						<a href='blind/edit' class='dropdown-item'>수정</a><hr>
+						<a href='edit?blindNum=${blind.blindNum}' class='dropdown-item'>수정</a><hr>
 						<button type='button' id='delPost' class='dropdown-item delContent'>삭제</button>
 					</div>
 				</div>

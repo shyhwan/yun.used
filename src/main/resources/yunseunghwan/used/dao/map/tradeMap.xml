@@ -32,7 +32,7 @@
 		update trades
 		set trader_id = #{traderId}, trade_code = #{tradeCode}, product_code = #{productCode}, 
 			title = #{title}, contents = #{contents}, trade_img_file_name = #{tradeImgFileName},
-			location = #{location}, price = #{price}, view_count = #{viewCount}
+			location = #{location}, price = #{price}
 		where trade_num = #{tradeNum}
 	</update>
 	
@@ -40,10 +40,4 @@
 		delete trades
 		where trade_num = #{tradeNum}
 	</delete>
-	
-	<select id='tradeView' resultType='trade' parameterType='trade'>
-	 select *
-	 from trades
-	 where trade_num = #{tradeNum}
-	</select>
 </mapper>

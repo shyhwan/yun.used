@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import yunseunghwan.used.domain.Blind;
+import yunseunghwan.used.domain.Trade;
 import yunseunghwan.used.service.BlindService;
 
 @RestController
@@ -54,7 +56,20 @@ public class BlindController {
 	
 	@GetMapping("view")
 	public ModelAndView tradeView(ModelAndView mv, HttpSession session, Blind blind) {
+		mv.setViewName("blind/view");
 		return blindService.getBlind(blind, mv, session);
+	}
+	
+	@GetMapping("edit")
+	public ModelAndView editView(ModelAndView mv, Blind blind, HttpSession session) {
+		mv.setViewName("blind/edit");
+		return blindService.getBlind(blind, mv, session);
+	}
+	
+	@PutMapping("fix") 
+	public void fixTrade(HttpSession session, ModelAndView mv, Blind blind){
+		System.out.println(blind);
+		blindService.fixBlind(blind);
 	}
 	
 	@DeleteMapping("del/{blindNum}")
