@@ -94,26 +94,6 @@ $(listReports)
                  
                     </tbody>
                 </table>
-                
-                <div class='row mt-5 justify-content-center'>
-                    <span class='col'></span>
-                    <span class='col'></span>
-                    <span class='col'></span>
-                    <span class='col'>
-                        <i class="fa-solid fa-angle-left"></i>
-                    </span>
-                    <span class='col'>1</span>
-                    <span class='col'>2</span>
-                    <span class='col'>3</span>
-                    <span class='col'>4</span>
-                    <span class='col'>5</span>
-                    <span class='col'>
-                        <i class="fa-solid fa-angle-right"></i>
-                    </span>
-                    <span class='col'></span>
-                    <span class='col'></span>
-                    <span class='col'></span>
-                </div>
             </div>
         </div>
     </div>
