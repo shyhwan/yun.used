@@ -70,6 +70,8 @@ $(() => {
 		}).done(messagelog)
 		$('#msgText').val('')
 	})
+	
+	condole.log('${chatRoom}')
 })
 </script>
 <style>
