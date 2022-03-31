@@ -36,8 +36,6 @@ public class CommentController {
 	
 	@PostMapping("add")
 	public void addComment(@RequestBody Comment comment) {
-		System.out.println(comment);
-		
 		if(comment.getTradeNum() != 0) {
 			commentService.addTradeComment(comment);
 		} else if(comment.getBlindNum() != 0) {
@@ -49,7 +47,6 @@ public class CommentController {
 
 	@DeleteMapping("del/{commentNum}")
 	public void delComment(@PathVariable int commentNum) {
-		System.out.println(commentNum);
 		commentService.delComment(commentNum);
 	}
 }

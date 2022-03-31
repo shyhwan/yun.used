@@ -38,7 +38,6 @@ function commentList() {
 								<i class="fa-solid fa-ellipsis-vertical"></i>
 							</button>
 							<div class='dropdown-menu w-25'>
-								<button type='button' class='dropdown-item'>수정</button><hr>
 								<button type='button' id='delComment' class='dropdown-item delContent'>삭제</button> 
 							</div>		
 		                    <button id='likeBtn1' type='button' class='btn'>
@@ -142,7 +141,6 @@ $(() => {
 		
 	
 		$('#delCommentOkBtn').click(() => {
-			console.log(commentNum);
 			$('#modal').modal('hide')
 			$.ajax({
 				url: '/comment/del/' + commentNum,

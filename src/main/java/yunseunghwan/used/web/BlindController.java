@@ -67,7 +67,6 @@ public class BlindController {
 	
 	@PutMapping("fix") 
 	public void fixTrade(HttpSession session, ModelAndView mv, Blind blind){
-		System.out.println(blind);
 		blindService.fixBlind(blind);
 	}
 	
