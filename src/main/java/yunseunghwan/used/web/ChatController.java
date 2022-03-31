@@ -42,7 +42,7 @@ public class ChatController {
 	
 	@GetMapping("room")
 	public ModelAndView chatRoom(String userId, int tradeNum, ModelAndView mv) {
-		return chatService.getChat(userId, tradeNum, mv);
+			return chatService.getChat(userId, tradeNum, mv);
 	}
 	
 	@GetMapping("log")

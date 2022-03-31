@@ -27,6 +27,11 @@ public class TradeDaoImple implements TradeDao{
 	public Trade selectTrade(Trade trade) {
 		return tradeMap.selectTrade(trade);
 	}
+	
+	@Override
+	public Trade selectTrade(int tradeNum) {
+		return tradeMap.selectTrade(tradeNum);
+	}
 
 	@Override
 	public void insertTrade(Trade trade) {

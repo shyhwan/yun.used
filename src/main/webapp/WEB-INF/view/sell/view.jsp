@@ -117,14 +117,7 @@ $(() => {
 		}
  		location.href='/chat/room?tradeNum=${trade.tradeNum}&userId=${userId}'
 	})
-	
-	$('#checkHeart').click(() => {
-        $('.fa-heart').toggleClass('on', 'off')
-		checkWish()
-	})
 
-	checkRes()
-	
 	$('#delPost').click(() => {
 		$('#modalBtn').show()
 		$('#delCommentOkBtn').hide()

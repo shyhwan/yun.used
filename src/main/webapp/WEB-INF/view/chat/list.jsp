@@ -20,14 +20,14 @@ function chatList() {
 			const chatList = []
 			
 			$.each(chats, (i, chat) => {
-				chatList.unshift(
+				chatList.unshift(						
 					`<li class='border-bottom'>
 						<div class='row align-items-center p-3'>
 							<span>
 								\${++i}
 							</span>
 							<a class='col' href='chat/room?tradeNum=\${chat.tradeNum}&userId=\${chat.userId}'>
-								<span class='d-block'>\${chat.userId}</span>
+								<span id='userId' class='d-block'>\${chat.userId}</span>
 								<small class='userNick'></small>
 							</a>
 							<div class=''>
@@ -35,6 +35,7 @@ function chatList() {
 							</div>
 						</div>
 					</li>`)
+
 			})
 			
 			$('#chatList').append(chatList.join(''));
