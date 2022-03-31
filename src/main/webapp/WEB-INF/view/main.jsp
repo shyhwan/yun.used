@@ -15,7 +15,7 @@ function checkLogin() {
 	let Id = "${userId}"
 	
 	if(Id) {		
-		if(Id == 'admin@naver.com') {
+		if(Id == 'admin') {
 			$('.loginTab').toggle()
 			$('.logoutTab').prepend('<a href="admin" class="ml-2">ADMIN</a>')
 			$('.logoutTab').toggle()

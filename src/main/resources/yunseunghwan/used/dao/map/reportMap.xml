@@ -14,6 +14,16 @@
 		where report_num = #{reportNum}
 	</select>
 	
+	<select id='selectAdminReports' resultType='report'>
+		select * from reports
+		order by report_num
+	</select>
+	
+	<select id='selectAdminReport' resultType='report'>
+		select * from reports
+		where report_num = #{reportNum}
+	</select>
+	
 	<insert id='insertReport'>
 		insert into reports(report_num, user_id, title, contents, report_img_file_name, accused_name)				
 		values (report_num_seq.nextval, #{userId}, #{title}, #{contents}, #{reportImgFileName}, #{accusedName})

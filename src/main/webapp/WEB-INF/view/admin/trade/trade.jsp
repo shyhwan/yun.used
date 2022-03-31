@@ -2,6 +2,7 @@
 <html lang='ko'>
 <head>
 <title>ADMIN</title>
+<meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <link rel='stylesheet' href='http://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css'/>
 <link rel='stylesheet' href='../../res/style.css'>
@@ -11,51 +12,47 @@
 <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js'></script>
 <script src='https://kit.fontawesome.com/449f39a7b2.js' crossorigin='anonymous'></script>
 <script>
-function listUsers() {
-	$('#users').empty()
+function listTrades() {
+	$('#trade').empty()
 	
 	$.ajax({
-		url: 'userList'
-	}).done(users => {
-		if(users.length) {				
-			const userArr = []
-
-			$.each(users, (i, user) => {
-				userArr.unshift(
-					`<tr id='user' class='row justify-content-between text-center p-3' onclick='location.href="users/userManager?userId=${user.userId}"'>
-                         <td class='col-2'>\${++i}</td>
-                         <td id='userId' class='col-3'>\${user.userId}</td>
-                         <td class='col'>\${user.userName}</td>
-                         <td class='col'>\${user.nickName}</td>
-                         <td class='col'>\${user.joinDate}</td>
-                     </tr>`		
+		url: 'tradeList'
+	}).done(trades => {
+		if(trades.length) {
+			const tradeArr = []
+			
+			$.each(trades, (i, trade) => {
+				tradeArr.unshift(
+					`<tr class='row justify-content-between text-center p-2'>
+						<td onclick='location.href="tradeManager"' class='col-2'>\${trade.tradeNum}</td>
+						<td onclick='location.href="tradeManager"'class='col-2'>\${trade.tradeCode}</td>
+						<td onclick='location.href="tradeManager"'class='col'>\${trade.title}</td>
+						<td class='col-2'>
+							<button type='button' class='btn ml-3 border btn-secondary' data-toggle='modal' data-target='#delContent'>삭제</button>
+						</td>
+					</tr>`
 				)
 			})
 			
-			$('#users').append(userArr.join(''))
-		} else $('#users').append(
-			'<tr><td colspan=4 class=text-center>회원이 없습니다.</td></tr>')
-	}) 
+			$('#trade').append(tradeArr.join(''))
+		} else $('#trade').append('<tr><td colspan=4 class=text-center>거래 목록이 없습니다.</td></tr>')
+	})
 }
 
-$(() => {
-	listUsers()
-})
+$(listTrades)
 </script>
 <style>
-.title {
-    background-color: #eee7da;
-}
+
 </style>
 </head>
 <body>
     <header class='container m-6'>
         <div class='row d-flex justify-content-between align-items-center m-2 pl-2 pr-2'>
             <div class='p-4 border'>
-				로고디자인
+                로고디자인
             </div>
             <span>안녕하세요. 관리자님!</span>
-            <a id='logout' href='../../used' class='ml-2'>
+            <a id='logout' href='../../main.html' class='ml-2'>
                 <span class='d-none d-md-inline'>로그아웃</span>
             </a>
         </div>
@@ -69,7 +66,7 @@ $(() => {
                         <a href='../admin'>메인</a>
                     </li>
                     <li class='m-4 text-center'>
-                        <a href='users'>회원 관리</a>
+                        <a href='../admin/users'>회원 관리</a>
                     </li>
                     <li class='m-4 text-center'>
                         <a href='../admin/trade'>게시판 관리</a>
@@ -82,24 +79,23 @@ $(() => {
 
             <div class='col m-3'>
                 <div class='row justify-content-between align-items-end m-2'>
-                    <h5>회원 목록</h5>
+                    <h5>게시판 목록</h5>
                     <div class='row form'>
                         <input type='text' class='col form-control'>
                         <button type='button' class='col-3 form-control btn border ml-2'>검색</button>
                     </div>
                 </div>
                 <table class='col table-hover'>
-                    <thead class='col h6 p-2'>
+                    <thead class='col border-top border-bottom h6 p-2'>
                         <tr class='row text-center'>
-                            <th class='col'>회원번호</th>
-                            <th class='col'>아이디</th>
-                            <th class='col'>이름</th>
-                            <th class='col'>닉네임</th>
-                            <th class='col'>가입일</th>
+                            <th class='col-2'>글 번호</th>
+                            <th class='col-2'>카테고리</th>
+                            <th class='col'>제목</th>
+                            <th class='col-2'>삭제</th>
                         </tr>
                     </thead>
-                    <tbody id='users' class='col border-bottom'>
-                        
+                    <tbody id='trade' class='col border-bottom'>
+                       
                     </tbody>
                 </table>
 
@@ -108,7 +104,7 @@ $(() => {
                     <span class='col'></span>
                     <span class='col'></span>
                     <span class='col'>
-                        <i class='fa-solid fa-angle-left'></i>
+                        <i class="fa-solid fa-angle-left"></i>
                     </span>
                     <span class='col'>1</span>
                     <span class='col'>2</span>
@@ -116,7 +112,7 @@ $(() => {
                     <span class='col'>4</span>
                     <span class='col'>5</span>
                     <span class='col'>
-                        <i class='fa-solid fa-angle-right'></i>
+                        <i class="fa-solid fa-angle-right"></i>
                     </span>
                     <span class='col'></span>
                     <span class='col'></span>
@@ -138,5 +134,19 @@ $(() => {
 			</div>
 		</div>
 	</footer>
+
+	<div class='modal' id='delContent' tabindex='-1'>
+		<div class='modal-dialog modal-dialog-centered'>
+			<div class='modal-content'>
+				<div class='modal-body'>
+					<p id='modalMsg'>삭제 하시겠습니까?</p>
+				</div>
+				<div id='modalBtn' class='modal-footer'>
+					<button type='button' class='btn btn-light' data-dismiss="modal">아니오</button>
+					<button type='button' id='delOkBtn' class='btn btn-secondary' data-dismiss="modal">예</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

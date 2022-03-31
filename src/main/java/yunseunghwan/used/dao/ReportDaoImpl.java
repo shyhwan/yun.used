@@ -18,6 +18,17 @@ public class ReportDaoImpl implements ReportDao {
 	}
 	
 	@Override
+	public List<Report> selectAdminReports() {
+		return reportMap.selectAdminReports();
+	}
+	
+	@Override
+	public Report selectAdminReport(Report report) {
+		System.out.println("성공3");
+		return reportMap.selectAdminReport(report);
+	}
+	
+	@Override
 	public Report selectReport(Report report) {
 		return reportMap.selectReport(report);
 	}

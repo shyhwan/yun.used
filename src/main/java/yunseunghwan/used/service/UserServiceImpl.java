@@ -70,6 +70,17 @@ public class UserServiceImpl implements UserService{
 	public List<User> getUsers() {
 		return userDao.selectUsers();
 	}
+	
+	@Override
+	public ModelAndView getAdminUser(User user, ModelAndView mv, HttpSession session) {
+		String userId = (String) session.getAttribute("userId");
+		User userVal = userDao.selectAdminUser(user);
+		
+		mv.addObject("user", userVal);
+		mv.addObject("userId", userId);
+		mv.setViewName("users/userManager");
+		return mv;
+	}
 
 	@Override
 	public ModelAndView getConnectUser(HttpSession session, ModelAndView mv) {

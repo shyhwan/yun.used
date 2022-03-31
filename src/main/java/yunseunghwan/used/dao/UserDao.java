@@ -13,6 +13,7 @@ public interface UserDao {
 	UserDto checkUserNickName(UserDto user);
 	UserDto checkUserPw(UserDto user);
 	List<User> selectUsers();
+	User selectAdminUser(User user);
 	User selectUser(String userId);
 	void insertUser(User user);
 	void updateUser(User user);

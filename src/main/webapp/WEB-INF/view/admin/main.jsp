@@ -23,10 +23,10 @@ function listUsers() {
 				if(i < 5) {	
 					userArr.unshift(
 						`<tr id='user' class='row justify-content-between text-center p-3'>
-	                         <td class='col'>\${++i}</td>
+	                         <td class='col-1'>\${++i}</td>
 	                         <td id='userId' class='col'>\${user.userId}</td>
-	                         <td class='col'>\${user.nickName}</td>
-	                         <td class='col'>\${user.joinDate}</td>
+	                         <td class='col-2'>\${user.nickName}</td>
+	                         <td class='col-2'>\${user.joinDate}</td>
 	                     </tr>`		
 					)
 				}
@@ -39,28 +39,26 @@ function listUsers() {
 }
 
 function listReport() {
-	$('#users').empty()
+	$('#reportList').empty()
 	
 	$.ajax({
-		url: 'list'
-	}).done(users => {
-		if(users.length) {				
-			const userArr = []
+		url: 'admin/reportList'
+	}).done(reports => {
+		if(reports.length) {				
+			const reportArr = []
 			
-			$.each(users, (i, user) => {
-				userArr.unshift(
-					`<tr id='user' class='row p-2' onclick='location.href="user/userMgt"'>
-                        <td class='col-2'>1</td>
-                        <td id='userId' class='col'>\${user.userId}</td>
-                        <td class='col'>\${user.nickName}</td>
-                        <td class='col-2'>\${user.joinDate}</td>
+			$.each(reports, (i, report) => {
+				reportArr.unshift(
+					`<tr id='report' class='row p-2'>
+                        <td class='col'>\${report.title}</td>
+                        <td class='col-2'>\${report.reportRegDate}</td>
                     </tr>`
 				)
 			})
 			
-			$('#users').append(userArr.join(''))
-		} else $('#users').append(
-			'<tr><td colspan=4 class=text-center>회원이 없습니다.</td></tr>')
+			$('#reportList').append(reportArr.join(''))
+		} else $('#reportList').append(
+			'<tr><td colspan=4 class=text-center>신고가 없습니다.</td></tr>')
 	}) 
 }
 
@@ -69,6 +67,8 @@ $(() => {
 	
 	console.log($('#report').text())
 })
+
+$(listReport)
 </script>
 <style>
 .title {
@@ -100,10 +100,10 @@ $(() => {
                         <a id='users' href='admin/users'>회원 관리</a>
                     </li>
                     <li class='m-4 text-center'>
-                        <a id='trade' href='sell/'>게시판 관리</a>
+                        <a id='trade' href='admin/trade'>게시판 관리</a>
                     </li>
                     <li class='m-4 text-center'>
-                        <a id='report' href='report/'>신고 관리</a>
+                        <a id='report' href='admin/report'>신고 관리</a>
                     </li>
                 </ul>
             </nav>
@@ -124,27 +124,12 @@ $(() => {
                 <div class='row justify-content-between align-items-end mt-5 p-2'>
                     <h5>신고목록</h5>
                     <div >
-                        <a href='report/' class='small'>더보기</a>
+                        <a href='admin/report' class='small'>더보기</a>
                     </div>
                 </div>
                 <table class='row border-top border-bottom'>
-                    <tbody class='col'>
-                        <tr class='row p-2'>
-                            <td class='col'>이사람 사기치는 것 같아요....</td>
-                            <td class='col-2'>2021-04-22</td>
-                        </tr>
-                        <tr class='row p-2'>
-                            <td class='col'>비매너 신고합니다ㅡㅡ</td>
-                            <td class='col-2'>2021-04-24</td>
-                        </tr>
-                        <tr class='row p-2'>
-                            <td class='col'>금액을 말을 안해줘요;;</td>
-                            <td class='col-2'>2021-05-02</td>
-                        </tr>
-                        <tr class='row p-2'>
-                            <td class='col'>하자 있는데 거짓말을 했어요</td>
-                            <td class='col-2'>2021-06-11</td>
-                        </tr>
+                    <tbody id='reportList' class='col'>
+                        
                     </tbody>
                 </table>
             </div>

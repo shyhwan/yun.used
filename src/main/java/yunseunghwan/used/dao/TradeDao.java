@@ -6,6 +6,7 @@ import yunseunghwan.used.domain.Trade;
 
 public interface TradeDao {
 	List<Trade> selectTrades(String tradeCode);
+	List<Trade> selectAdminTrades();
 	Trade seletTrade(Trade trade);
 	Trade seletTrade(int tradeNum);
 	void insertTrade(Trade trade);
