@@ -19,7 +19,7 @@ public interface UserService {
 	UserDto checkUserNickName(UserDto user);
 	UserDto checkUserPw(UserDto user);
 	List<User> getUsers();
-	ModelAndView getAdminUser(User user, ModelAndView mv, HttpSession session);
+	ModelAndView getAdminUser(User user, ModelAndView mv);
 	ModelAndView getConnectUser(HttpSession session, ModelAndView mv);
 	User getUser(String userId);
 	void addUser(User user);

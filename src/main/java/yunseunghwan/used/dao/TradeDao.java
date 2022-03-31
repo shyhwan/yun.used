@@ -8,7 +8,6 @@ public interface TradeDao {
 	List<Trade> selectTrades(String tradeCode);
 	List<Trade> selectAdminTrades();
 	Trade seletTrade(Trade trade);
-	Trade seletTrade(int tradeNum);
 	void insertTrade(Trade trade);
 	void updateTrade(Trade trade);
 	void deleteTrade(int tradeNum);

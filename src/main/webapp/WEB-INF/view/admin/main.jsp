@@ -49,8 +49,8 @@ function listReport() {
 			
 			$.each(reports, (i, report) => {
 				reportArr.unshift(
-					`<tr id='report' class='row p-2'>
-                        <td class='col'>\${report.title}</td>
+					`<tr id='report' class='row p-2 '>
+                        <td class='col text-center'><span>\${report.title}</span></td>
                         <td class='col-2'>\${report.reportRegDate}</td>
                     </tr>`
 				)
@@ -100,7 +100,7 @@ $(listReport)
                         <a id='users' href='admin/users'>회원 관리</a>
                     </li>
                     <li class='m-4 text-center'>
-                        <a id='trade' href='admin/trade'>게시판 관리</a>
+                        <a id='trade' href='admin/trade'>거래 관리</a>
                     </li>
                     <li class='m-4 text-center'>
                         <a id='report' href='admin/report'>신고 관리</a>

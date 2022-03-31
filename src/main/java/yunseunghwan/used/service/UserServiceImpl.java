@@ -72,13 +72,10 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	@Override
-	public ModelAndView getAdminUser(User user, ModelAndView mv, HttpSession session) {
-		String userId = (String) session.getAttribute("userId");
-		User userVal = userDao.selectAdminUser(user);
-		
+	public ModelAndView getAdminUser(User user, ModelAndView mv) {		
+		User userVal = userDao.selectUser(user.getUserId());
 		mv.addObject("user", userVal);
-		mv.addObject("userId", userId);
-		mv.setViewName("users/userManager");
+		mv.setViewName("admin/user/userManager");
 		return mv;
 	}
 
