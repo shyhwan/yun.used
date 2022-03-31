@@ -51,7 +51,6 @@ public class ChatServiceImpl implements ChatService{
 		getChat = chatDao.checkRoom(chat.getUserId(), chat.getTradeNum());
 		
 		mv.addObject("chatRoom", getChat);
-		mv.setViewName("chat/room");
 		return mv;
 	}
 }
