@@ -27,8 +27,8 @@ function chatList() {
 								\${++i}
 							</span>
 							<a class='col' href='chat/room?roomNum=\${chat.roomNum}'>
-								<span class='d-block'>\${chats.message}</span>
-								<small class='userNick'>\${chats.userId}</small>
+								<span class='d-block'>\${chat.userId}</span>
+								<small class='userNick'></small>
 							</a>
 							<div class=''>
 								<i class="fa-regular fa-bell" style='color:orangered'></i>

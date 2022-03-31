@@ -42,14 +42,16 @@ public class ChatServiceImpl implements ChatService{
 	}
 	
 	@Override
-	public void addChat(Chat chat) {
-		Boolean isGood = false;
+	public ModelAndView addChat(Chat chat, ModelAndView mv) {
 		Chat getChat = chatDao.checkRoom(chat.getUserId(), chat.getTradeNum());
 		
 		if(getChat == null) {
 			chatDao.insertChat(chat);			
-		} else {
-			isGood = true;
 		}
+		getChat = chatDao.checkRoom(chat.getUserId(), chat.getTradeNum());
+		
+		mv.addObject("chatRoom", getChat);
+		mv.setViewName("chat/room");
+		return mv;
 	}
 }

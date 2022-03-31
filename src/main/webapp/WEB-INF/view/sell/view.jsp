@@ -113,8 +113,8 @@ $(() => {
 					userId: '${userId}',
 					tradeNum: '${trade.tradeNum}'			
 				})
-			}).done(location.href='/chat/room')
- 		}
+			})
+		}
 	})
 	
 	$('#checkHeart').click(() => {
@@ -272,7 +272,7 @@ img {
 			</div>
 		</div>
 		
-		<div id='chatBtn' class='goChatBtn row fixed-bottom d-sm-none'>		
+		<div id='chatBtn' onclick='location.href="/chat/room?roomNum=${roomNum}"' class='goChatBtn row fixed-bottom d-sm-none'>		
 			<div class='col'>
 				<a  class='btn btn-block p-2'>
 					<i class="fa-solid fa-comments fa-xl"></i>
