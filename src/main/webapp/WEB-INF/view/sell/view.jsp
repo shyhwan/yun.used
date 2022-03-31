@@ -100,6 +100,22 @@ $(() => {
 		}
 	})
 	
+	$('.goChatBtn').click(() => {
+ 		if(!'${userId}') {
+ 			location.href='/user/login'
+ 		} else {
+			$.ajax({
+				url: '/chat/add',
+				method: 'post',
+				contentType: 'application/json',
+				data: JSON.stringify({
+					traderId: '${trade.traderId}',
+					userId: '${userId}',
+					tradeNum: '${trade.tradeNum}'			
+				})
+			})
+ 		}
+	})
 	
 	$('#checkHeart').click(() => {
         $('.fa-heart').toggleClass('on', 'off')
@@ -247,18 +263,18 @@ img {
 	</div>
 
 	<div  class='container-fulid'>
-		<div id='chatBtnCom'  class='row fixed-bottom d-none d-md-inline'>		
+		<div id='chatBtnCom' onclick='location.href="/chat/room"'  class='goChatBtn row fixed-bottom d-none d-md-inline'>		
 			<div class='col'>
-				<a href="../chat/02.html" class='btn p-2'>
+				<a class='btn p-2'>
 					<i class="fa-solid fa-comments fa-xl"></i>
 					<strong>채팅 시작하기</strong>
 				</a>
 			</div>
 		</div>
 		
-		<div id='chatBtn'  class='row fixed-bottom d-sm-none'>		
+		<div id='chatBtn' onclick='location.href="/chat/room"'  class='goChatBtn row fixed-bottom d-sm-none'>		
 			<div class='col'>
-				<a href="../chat/02.html" class='btn btn-block p-2'>
+				<a  class='btn btn-block p-2'>
 					<i class="fa-solid fa-comments fa-xl"></i>
 					<strong class='ml-3'>채팅 시작하기</strong>
 				</a>
