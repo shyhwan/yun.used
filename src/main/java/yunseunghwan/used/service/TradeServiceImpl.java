@@ -48,8 +48,6 @@ public class TradeServiceImpl implements TradeService{
 	}
 	
 	@Override
-<<<<<<< HEAD
-=======
 	public ModelAndView getAdminTrade(ModelAndView mv, Trade trade) {
 		Trade tradeVal = tradeDao.selectTrade(trade);
 		
@@ -59,7 +57,6 @@ public class TradeServiceImpl implements TradeService{
 	}
 	
 	@Override
->>>>>>> branch 'master' of https://github.com/shyhwan/yun.used.git
 	public void addTrade(HttpSession session, Trade trade) {
 		String userId = (String) session.getAttribute("userId");
 		String fileName = trade.getTradeImgFile().getOriginalFilename();
@@ -117,14 +114,7 @@ public class TradeServiceImpl implements TradeService{
 		return tradeDao.selectAdminTrades(trade);
 	}
 
-	@Override
-	   public ModelAndView getAdminTrade(ModelAndView mv, Trade trade) {
-	      Trade tradeVal = tradeDao.selectTrade(trade);
-	      
-	      mv.addObject("trade", tradeVal);
-	      mv.setViewName("admin/trade/tradeManager");
-	      return mv;
-	   }
+
 }
 
 
