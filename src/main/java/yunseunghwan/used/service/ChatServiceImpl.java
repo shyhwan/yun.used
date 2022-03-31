@@ -38,14 +38,14 @@ public class ChatServiceImpl implements ChatService{
 		} else {
 			traderId = chatVal.getTraderId();			
 			trader = userDao.selectUser(chatVal.getTraderId());
+			mv.addObject("chatRoom", chatVal);
 		}
-		
+
 		if(userId == traderId) {			
 			mv.addObject("traderNickName", user.getNickName());
 		} else {			
 			mv.addObject("traderNickName", trader.getNickName());
 		}
-		mv.addObject("chatRoom", chatVal);
 		mv.setViewName("chat/room");
 		return mv;
 	}

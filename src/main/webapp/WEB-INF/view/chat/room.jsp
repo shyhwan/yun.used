@@ -13,10 +13,7 @@
 function messagelog() {
 	$('#chatView').empty()
 	$.ajax({
-		url: 'log',
-		data: {
-			roomNum: '${chatRoom.roomNum}'
-		}
+		url: 'log/' + '${chatRoom.roomNum}'
 		}).done(messages => {
 			if(messages.length) {
 				const chatList = []
@@ -24,7 +21,7 @@ function messagelog() {
 				$.each(messages, (i, message) => {
 					if('${userId}' != `\${message.userId}`) {
 						chatList.push(
-							`<li class='w-75 mt-3'>
+							`<li class='mt-3 w-75'>
 		                        <div class='row m-1'>
 		                            <span class='p-1 border'>
 		                            	\${message.message}
@@ -49,13 +46,17 @@ function messagelog() {
 			} else {
 				$('#chatView').empty()
 				$('#chatView').append('<li class="text-center w-100"><span>채팅을 시작하세요.</span></li>')
-			}
+			} 
 		})
 }
 
 
 $(() => {
-	messagelog()
+	if(!'${chatRoom.roomNum}') {
+		location.reload()
+	} else {		
+		messagelog()
+	}
 		
 	$('#addMsgBtn').click(() => {
 		if(!$('#msgText').val()) {
