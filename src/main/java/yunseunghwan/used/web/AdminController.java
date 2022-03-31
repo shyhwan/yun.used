@@ -2,13 +2,9 @@ package yunseunghwan.used.web;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,7 +21,6 @@ public class AdminController {
 	@Autowired private UserService userService;
 	@Autowired private ReportService reportService;
 	@Autowired private TradeService tradeService;
-	@Value("${attachPath}") private String attachPath;
 	
 	@GetMapping("users")
 	public ModelAndView Users(ModelAndView mv) {
@@ -39,9 +34,8 @@ public class AdminController {
 	}
 	
 	@GetMapping("userManager")
-	public ModelAndView UserProfile(@RequestParam ModelAndView mv, @RequestParam User user, @RequestParam HttpSession session) {
-		System.out.println("성공");
-		return userService.getAdminUser(user, mv, session);
+	public ModelAndView UserProfile(ModelAndView mv, User user) {
+		return userService.getAdminUser(user, mv);
 	}
 	
 	@GetMapping("report")
@@ -56,11 +50,10 @@ public class AdminController {
 	}
 	
 	@GetMapping("reportManager")
-	public ModelAndView reportView(ModelAndView mv, Report report, HttpSession session) {
-		System.out.println("성공");
-		return reportService.getAdminReport(mv, report, session);
+	public ModelAndView reportView(ModelAndView mv, Report report) {
+		return reportService.getAdminReport(mv, report);
 	}
-	
+
 	@GetMapping("trade")
 	public ModelAndView trade(ModelAndView mv) {
 		mv.setViewName("admin/trade/trade");
@@ -73,9 +66,8 @@ public class AdminController {
 	}
 	
 	@GetMapping("tradeManager")
-	public ModelAndView tradeView(ModelAndView mv) {
-		mv.setViewName("admin/trade/tradeManager");
-		return mv;
+	public ModelAndView tradeView(ModelAndView mv, Trade trade) {
+		return tradeService.getAdminTrade(mv, trade);
 	}
 	
 }

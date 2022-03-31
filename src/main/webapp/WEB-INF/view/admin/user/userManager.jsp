@@ -45,7 +45,7 @@ hr {
                         <a href='users'>회원 관리</a>
                     </li>
                     <li class='m-4 text-center'>
-                        <a href='../admin/trade'>게시판 관리</a>
+                        <a href='../admin/trade'>거래 관리</a>
                     </li>
                     <li class='m-4 text-center'>
                         <a href='../admin/report'>신고 관리</a>

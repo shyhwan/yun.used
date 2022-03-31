@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 <html lang='ko'>
 <head>
 <title>ADMIN</title>
-<meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <link rel='stylesheet' href='http://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css'/>
 <link rel='stylesheet' href='../../res/style.css'>
@@ -23,7 +23,7 @@ function listTrades() {
 			
 			$.each(trades, (i, trade) => {
 				tradeArr.unshift(
-					`<tr class='row justify-content-between text-center p-2'>
+					`<tr class='row justify-content-between align-items-center text-center p-2' onclick='location.href="tradeManager?tradeNum=\${trade.tradeNum}"'>
 						<td onclick='location.href="tradeManager"' class='col-2'>\${trade.tradeNum}</td>
 						<td onclick='location.href="tradeManager"'class='col-2'>\${trade.tradeCode}</td>
 						<td onclick='location.href="tradeManager"'class='col'>\${trade.title}</td>
@@ -69,7 +69,7 @@ $(listTrades)
                         <a href='../admin/users'>회원 관리</a>
                     </li>
                     <li class='m-4 text-center'>
-                        <a href='../admin/trade'>게시판 관리</a>
+                        <a href='../admin/trade'>거래 관리</a>
                     </li>
                     <li class='m-4 text-center'>
                         <a href='../admin/report'>신고 관리</a>
@@ -98,26 +98,6 @@ $(listTrades)
                        
                     </tbody>
                 </table>
-
-                <div class='row mt-5 justify-content-center'>
-                    <span class='col'></span>
-                    <span class='col'></span>
-                    <span class='col'></span>
-                    <span class='col'>
-                        <i class="fa-solid fa-angle-left"></i>
-                    </span>
-                    <span class='col'>1</span>
-                    <span class='col'>2</span>
-                    <span class='col'>3</span>
-                    <span class='col'>4</span>
-                    <span class='col'>5</span>
-                    <span class='col'>
-                        <i class="fa-solid fa-angle-right"></i>
-                    </span>
-                    <span class='col'></span>
-                    <span class='col'></span>
-                    <span class='col'></span>
-                </div>
             </div>
         </div>
     </div>

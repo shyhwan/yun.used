@@ -8,17 +8,17 @@
 		where trade_code = #{tradeCode} or trader_id = #{traderId}
 		order by trade_reg_date
 	</select>
+		
+	<select id='selectAdminTrades' resultType='trade'>
+		select *
+		from trades
+		order by trade_num
+	</select>
 	
 	<select id='seletTrade' resultType='trade'>
 		select *
 		from trades
 		where trade_num = #{tradeNum}
-	</select>
-	
-	<select id='selectAdminTrades' resultType='trade'>
-		select *
-		from trades
-		order by trade_num
 	</select>
 	
 	<insert id='insertTrade'>

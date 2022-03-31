@@ -194,9 +194,9 @@ img {
 <form method='post'>
 	<div class='container'>
 		<div id='mainContent' class='row'>
-			<div id='productImg' class='col carousel'>
+			<div id='productImg' class='col'>
 				<div class='row justify-content-center'>
-						<img src='<c:url value="/attach/${trade.tradeImgFileName}"/>' class='w-75 h-auto'/>
+					<img src='<c:url value="/attach/${trade.tradeImgFileName}"/>' class='w-75 h-auto'/>
 				</div>
 			</div>
 		</div>>	

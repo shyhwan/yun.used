@@ -49,11 +49,6 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public User selectAdminUser(User user) {
-		return userMap.selectAdminUser(user);
-	}
-
-	@Override
 	public User selectUser(String userId) {
 		return userMap.selectUser(userId);
 	}

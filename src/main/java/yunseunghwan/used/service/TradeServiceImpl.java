@@ -53,6 +53,15 @@ public class TradeServiceImpl implements TradeService{
 	}
 	
 	@Override
+	public ModelAndView getAdminTrade(ModelAndView mv, Trade trade) {
+		Trade tradeVal = tradeDao.seletTrade(trade);
+		
+		mv.addObject("trade", tradeVal);
+		mv.setViewName("admin/trade/tradeManager");
+		return mv;
+	}
+	
+	@Override
 	public void addTrade(HttpSession session, Trade trade) {
 		String userId = (String) session.getAttribute("userId");
 		String fileName = trade.getTradeImgFile().getOriginalFilename();
@@ -64,6 +73,7 @@ public class TradeServiceImpl implements TradeService{
 		saveFile(attachPath + "/" + fileName, trade.getTradeImgFile());
 	}
 	
+<<<<<<< HEAD
 	@Override
 	public void fixTrade(Trade trade, HttpSession session) {
 		tradeDao.updateTrade(trade);
@@ -75,10 +85,18 @@ public class TradeServiceImpl implements TradeService{
 		return tradeDao.seletTrade(tradeNum);
 	}
 	
+=======
+>>>>>>> branch 'master' of https://github.com/shyhwan/yun.used.git
 	private void saveFile(String fileName, MultipartFile file) {
 		try {
 			file.transferTo(new File(fileName));
 		} catch(IOException e) {}
+	}
+
+	@Override
+	public void fixTrade(Trade trade, HttpSession session) {
+		tradeDao.updateTrade(trade);
+		
 	}
 	
 	@Override 

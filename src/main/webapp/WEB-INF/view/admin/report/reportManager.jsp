@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 <html lang='ko'>
 <head>
 <title>ADMIN</title>
-<meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <link rel='stylesheet' href='http://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css'/>
 <link rel='stylesheet' href='../../res/style.css'>
@@ -12,11 +12,65 @@
 <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js'></script>
 <script src='https://kit.fontawesome.com/449f39a7b2.js' crossorigin='anonymous'></script>
 <script>
+function commentList() {
+	$('#commentList').empty()
+	
+	$.ajax({
+		url: '/comment/list/report/' + ${report.reportNum},
+	}).done(comments => {
+		if(comments.length) {
+			const commentList = []
+			
+			$.each(comments, (i, comment) => {
+				commentList.unshift(
+					`<li class='col-12 mt-3 border-bottom'>
+						<div class='row justify-content-between align-items-center'>
+						<div class='col'>
+							<small class='pr-3'>\${comment.userId}</small>
+							<time class='border-left small pl-3'>
+								\${comment.commentRegDate}
+							</time>
+							<p class='mt-2 d-block'>
+								\${comment.contents}
+							</p>
+						</div>
+					</div>
+					</li>`)
+			})
+			
+			$('#commentList').append(commentList.join(''));
+		} else {
+			$('#commentList').empty()
+			$('#commentList').append('<li class="text-center mt-3"><span>댓글을 달아주세요.</span></li>')
+		}
+	})		
+}
 
+$(() => {
+	commentList()
+	
+		$('#addCommentBtn').click(() => {
+		if($('#commentText').val() == null) {
+			$('#commentText').focus()
+		} else {
+			$.ajax({
+				url: '/comment/add',
+				method: 'post',
+				contentType: 'application/json', 
+				data: JSON.stringify({
+					userId: '${userId}',
+					reportNum: '${report.reportNum}',
+					contents: $('#commentText').val()
+				})
+			}).done(commentList)
+			$('#commentText').val('')
+		}
+	})
+})
 </script>
 <style>
-.image {
-	width: 15rem;
+img {
+	width: 10rem;
 	height: 10rem;
 }
 </style>
@@ -45,7 +99,7 @@
                         <a href='../admin/users'>회원 관리</a>
                     </li>
                     <li class='m-4 text-center'>
-                        <a href='../admin/trade'>게시판 관리</a>
+                        <a href='../admin/trade'>거래 관리</a>
                     </li>
                     <li class='m-4 text-center'>
                         <a href='../admin/report'>신고 관리</a>
@@ -55,7 +109,7 @@
             
             <div class='col m-3'>
                 <div class='row justify-content-between p-2 border-bottom'>
-                    <h4>신고 관리</h4>
+                    <h5>신고 관리</h5>
                 </div>
                 <div class='row justify-content-center'>
                     <table class='table m-4 border-bottom'>
@@ -66,7 +120,7 @@
                             </tr>
                             <tr class='row'>
                                 <th class='col-2 text-center'>신고자</th>
-                                <td class='col text-center'>${reportNickName}</td>
+                                <td class='col text-center'>${report.userId}</td>
                             </tr>
                             <tr class='row'>
                                 <th class='col-2 text-center'>피신고자</th>
@@ -76,7 +130,8 @@
                                 <th class='col-2 text-center'>내용</th>
                                 <td class='col'>
                                     <div class='image border text-center'>
-                                    	<img src='<c:url value="/attach/${report.reportImgFileName}"/>'/></div>
+                                    	<img src='<c:url value="/attach/${report.reportImgFileName}"/>' class='w-75 h-auto'/>
+                                    </div>
                                     <p class='mt-3'>${report.contents}</p>
                                 </td>
                             </tr>
@@ -84,16 +139,8 @@
                     </table>
         
                     <div id='commentArea' class='container mt-4 mb-5'>
-                        <ul id='comment' class='row list-unstyled border-bottom'>
-                            <li class='col-12 mt-3 mb-3'>
-                                <div class='row justify-content-start'>
-                                    <span class='ml-3'>관리자</span>
-                                    <time class='col small'>10:25</time>
-                                </div>
-                                <div class='row mt-2'>
-                                    <p class='col'>신고 접수 되었습니다.</p>
-                                </div>
-                            </li>
+                        <ul id='commentList' class='row list-unstyled border-bottom'>
+                            
                         </ul>
                         <form id='addComment' class='row'>
                             <div class='form-group w-100 input-group'>

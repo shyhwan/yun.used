@@ -22,7 +22,7 @@ function listReports() {
 			
 			$.each(reports, (i, report) => {
 				reportArr.unshift(
-					`<tr class='row justify-content-between text-center p-3' onclick='location.href="report/reportManager?reportNum=\${report.reportNum}"'>
+					`<tr class='row justify-content-between text-center p-3' onclick='location.href="reportManager?reportNum=\${report.reportNum}"'>
 						<td class='col'>\${report.title}</td>
 						<td class='col-2'>\${report.userId}</td>
 						<td class='col-2'>\${report.reportRegDate}</td>
@@ -66,7 +66,7 @@ $(listReports)
                         <a href="../admin/users">회원 관리</a>
                     </li>
                     <li class='m-4 text-center'>
-                        <a href="../admin/trade">게시판 관리</a>
+                        <a href="../admin/trade">거래 관리</a>
                     </li>
                     <li class='m-4 text-center'>
                         <a href="../admin/report">신고 관리</a>
@@ -94,26 +94,6 @@ $(listReports)
                  
                     </tbody>
                 </table>
-                
-                <div class='row mt-5 justify-content-center'>
-                    <span class='col'></span>
-                    <span class='col'></span>
-                    <span class='col'></span>
-                    <span class='col'>
-                        <i class="fa-solid fa-angle-left"></i>
-                    </span>
-                    <span class='col'>1</span>
-                    <span class='col'>2</span>
-                    <span class='col'>3</span>
-                    <span class='col'>4</span>
-                    <span class='col'>5</span>
-                    <span class='col'>
-                        <i class="fa-solid fa-angle-right"></i>
-                    </span>
-                    <span class='col'></span>
-                    <span class='col'></span>
-                    <span class='col'></span>
-                </div>
             </div>
         </div>
     </div>

@@ -22,7 +22,7 @@ function listUsers() {
 
 			$.each(users, (i, user) => {
 				userArr.unshift(
-					`<tr id='user' class='row justify-content-between text-center p-3' onclick='location.href="users/userManager?userId=${user.userId}"'>
+					`<tr id='user' class='row justify-content-between text-center p-3' onclick='location.href="userManager?userId=\${user.userId}"'>
                          <td class='col-2'>\${++i}</td>
                          <td id='userId' class='col-3'>\${user.userId}</td>
                          <td class='col'>\${user.userName}</td>
@@ -72,7 +72,7 @@ $(() => {
                         <a href='users'>회원 관리</a>
                     </li>
                     <li class='m-4 text-center'>
-                        <a href='../admin/trade'>게시판 관리</a>
+                        <a href='../admin/trade'>거래 관리</a>
                     </li>
                     <li class='m-4 text-center'>
                         <a href='../admin/report'>신고 관리</a>
@@ -102,26 +102,6 @@ $(() => {
                         
                     </tbody>
                 </table>
-
-                <div class='row mt-5 justify-content-center'>
-                    <span class='col'></span>
-                    <span class='col'></span>
-                    <span class='col'></span>
-                    <span class='col'>
-                        <i class='fa-solid fa-angle-left'></i>
-                    </span>
-                    <span class='col'>1</span>
-                    <span class='col'>2</span>
-                    <span class='col'>3</span>
-                    <span class='col'>4</span>
-                    <span class='col'>5</span>
-                    <span class='col'>
-                        <i class='fa-solid fa-angle-right'></i>
-                    </span>
-                    <span class='col'></span>
-                    <span class='col'></span>
-                    <span class='col'></span>
-                </div>
             </div>
         </div>
     </div>
