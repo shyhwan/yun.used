@@ -36,8 +36,8 @@ public class ChatController {
 	}
 	
 	@PostMapping("add")
-	public void startChat(@RequestBody Chat chat, ModelAndView mv, HttpSession session) {
-		chatService.addChat(chat, mv, session);
+	public void startChat(@RequestBody Chat chat) {
+		chatService.addChat(chat);
 	}
 	
 	@GetMapping("room")

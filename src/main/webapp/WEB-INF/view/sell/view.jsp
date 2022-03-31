@@ -113,7 +113,7 @@ $(() => {
 					userId: '${userId}',
 					tradeNum: '${trade.tradeNum}'			
 				})
-			})
+			}).done(location.href='/chat/room')
  		}
 	})
 	
@@ -263,7 +263,7 @@ img {
 	</div>
 
 	<div  class='container-fulid'>
-		<div id='chatBtnCom' onclick='location.href="/chat/room"'  class='goChatBtn row fixed-bottom d-none d-md-inline'>		
+		<div id='chatBtnCom' class='goChatBtn row fixed-bottom d-none d-md-inline'>		
 			<div class='col'>
 				<a class='btn p-2'>
 					<i class="fa-solid fa-comments fa-xl"></i>
@@ -272,7 +272,7 @@ img {
 			</div>
 		</div>
 		
-		<div id='chatBtn' onclick='location.href="/chat/room"'  class='goChatBtn row fixed-bottom d-sm-none'>		
+		<div id='chatBtn' class='goChatBtn row fixed-bottom d-sm-none'>		
 			<div class='col'>
 				<a  class='btn btn-block p-2'>
 					<i class="fa-solid fa-comments fa-xl"></i>

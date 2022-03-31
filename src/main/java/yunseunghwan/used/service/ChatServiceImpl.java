@@ -19,8 +19,7 @@ public class ChatServiceImpl implements ChatService{
 	@Autowired private UserDao userDao;
 	
 	@Override
-	public List<Chat> getChats(String traderId) {
-		
+	public List<Chat> getChats(String traderId) {	
 		return chatDao.selectChats(traderId);
 	}
 	
@@ -43,7 +42,7 @@ public class ChatServiceImpl implements ChatService{
 	}
 	
 	@Override
-	public void addChat(Chat chat, ModelAndView mv, HttpSession session) {
+	public void addChat(Chat chat) {
 		Boolean isGood = false;
 		Chat getChat = chatDao.checkRoom(chat.getUserId(), chat.getTradeNum());
 		
