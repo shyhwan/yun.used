@@ -23,12 +23,12 @@ function listTrades() {
 			
 			$.each(trades, (i, trade) => {
 				tradeArr.unshift(
-					`<tr class='row justify-content-between align-items-center text-center p-2' onclick='location.href="tradeManager?tradeNum=\${trade.tradeNum}"'>
-						<td onclick='location.href="tradeManager"' class='col-2'>\${trade.tradeNum}</td>
-						<td onclick='location.href="tradeManager"'class='col-2'>\${trade.tradeCode}</td>
-						<td onclick='location.href="tradeManager"'class='col'>\${trade.title}</td>
+					`<tr class='row justify-content-between align-items-center text-center p-2'>
+						<td id='tradeNum' onclick='location.href="tradeManager?tradeNum=\${trade.tradeNum}"' class='col-2'>\${trade.tradeNum}</td>
+						<td onclick='location.href="tradeManager?tradeNum=\${trade.tradeNum}"' class='col-2'>\${trade.tradeCode}</td>
+						<td onclick='location.href="tradeManager?tradeNum=\${trade.tradeNum}"' class='col'>\${trade.title}</td>
 						<td class='col-2'>
-							<button type='button' class='btn ml-3 border btn-secondary' data-toggle='modal' data-target='#delContent'>삭제</button>
+							<button id='delPost' type='button' class='btn ml-3 border btn-secondary'>삭제</button>
 						</td>
 					</tr>`
 				)
@@ -39,7 +39,33 @@ function listTrades() {
 	})
 }
 
-$(listTrades)
+$(() => {
+	listTrades()
+	
+	$(document).on('click', '#delPost', function() {
+		const tradeNum = $(this).parent().prev().prev().prev().text();
+		$('#modal').modal()
+
+		$('#delOkBtn').click(() => {
+			$('#modal').modal('hide')
+			if('${trade.tradeCode}' == '구매') {
+				$.ajax({
+					url: '/buy/del/' + tradeNum,
+					method: 'delete'
+				}).done(function() {
+					location.href='trade'
+				})
+			} else {			
+				$.ajax({
+					url: '/sell/del/' + tradeNum,
+					method: 'delete'
+				}).done(function() {
+					location.href='trade'	
+				})
+			}
+		})
+	})
+})
 </script>
 <style>
 
@@ -115,7 +141,7 @@ $(listTrades)
 		</div>
 	</footer>
 
-	<div class='modal' id='delContent' tabindex='-1'>
+	<div class='modal' id='modal' tabindex='-1'>
 		<div class='modal-dialog modal-dialog-centered'>
 			<div class='modal-content'>
 				<div class='modal-body'>
