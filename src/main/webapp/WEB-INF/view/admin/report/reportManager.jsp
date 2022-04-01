@@ -154,7 +154,7 @@ img {
         </div>
     </div>
     
-	<footer class='container-fulid border mt-5 p-3'>
+	<footer class='container border mt-5 p-3'>
         <div class='row m-3'>
             <div class='col-sm-3 border d-flex justify-content-center align-items-center'>
                 <div>로고이미지</div>

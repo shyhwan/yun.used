@@ -34,7 +34,7 @@ function listUsers() {
 			
 			$('#userList').append(userArr.join(''))
 		} else $('#userList').append(
-			'<tr><td colspan=4 class=text-center>회원이 없습니다.</td></tr>')
+			'<tr><td class=text-center><span>회원이 없습니다.</span></td></tr>')
 	}) 
 }
 
@@ -58,7 +58,7 @@ function listReport() {
 			
 			$('#reportList').append(reportArr.join(''))
 		} else $('#reportList').append(
-			'<tr><td colspan=4 class=text-center>신고가 없습니다.</td></tr>')
+			'<tr><td class=text-center><span>신고가 없습니다.</span></td></tr>')
 	}) 
 }
 
