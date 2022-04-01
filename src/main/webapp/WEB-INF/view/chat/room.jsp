@@ -75,6 +75,26 @@ $(() => {
 			$('#msgText').val('')
 		}
 	})
+	
+	$('#msgText').keydown(e => {
+        if(e.keyCode == 13) {
+        	if(!$('#msgText').val()) {
+    			$('#msgText').focus()
+    		} else {			
+    			$.ajax({
+    				url: 'sendMsg',
+    				method: 'post',
+    				contentType: 'application/json',
+    				data: JSON.stringify({
+    					userId: '${userId}',
+    					roomNum: '${chatRoom.roomNum}',
+    					message: $('#msgText').val()
+    				})
+    			}).done(messagelog)
+    			$('#msgText').val('')
+    		}
+		}
+    })  
 })
 </script>
 <style>
@@ -83,7 +103,7 @@ $(() => {
 }
 
 .sendMsg {
-    bottom: 2.2rem;
+    bottom: 3.2rem;
     z-index: 1000;
 }
 
@@ -108,12 +128,12 @@ $(() => {
 
                 </ul>
             </div>
-            <form class='row justify-content-center position-fixed sendMsg w-100'>
+            <div class='row justify-content-center position-fixed sendMsg w-100'>
                 <input id='msgText' type='text' class='col-10 form-control' placeholder='채팅을 입력해주세요.'/>
                 <button id='addMsgBtn' type='button' class='col-2 form-control'>
                     <i class="fa-solid fa-paper-plane"></i>
                 </button>
-            </form>
+            </div>
         </div>
 	</div>
 

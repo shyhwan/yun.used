@@ -37,102 +37,100 @@ function isVal(field) {
 }
 
 $(() => {
-$('input').val('')
-$('samll').text('')
+	$('input').val('')
+	$('samll').text('')
+		
+	$('#checkUserPw').keyup(() => {
+		if($('#checkUserPw').val() != $('#userPw').val()) {
+			$('#checkPwMsg').text('비밀번호가 일치하지 않습니다.')
+		} else {
+			$('#checkPwMsg').text('')
+		}
+	})
 	
-$('#checkUserPw').keyup(() => {
-	if($('#checkUserPw').val() != $('#userPw').val()) {
-		$('#checkPwMsg').text('비밀번호가 일치하지 않습니다.')
-	} else {
-		$('#checkPwMsg').text('')
-	}
-})
-
-$('#userPw').keyup(() => {
-	let pw = $('#userPw')
-	if(pw.length >= 6) {
-		$('#pwMsg').text('영어, 숫자포함 6~10자 입력하세요.')
-	} else {
-		$('#pwMsg').text('')
-	}
-})
-
-$('#userPw').focusout(() => {
-	let pwVal = $('#userPw').val()
-	const num = pwVal.search(/[0-9]/g)
-	const eng = pwVal.search(/[a-z]/ig)
+	$('#userPw').keyup(() => {
+		let pw = $('#userPw')
+		if(pw.length >= 6) {
+			$('#pwMsg').text('영어, 숫자포함 6~10자 입력하세요.')
+		} else {
+			$('#pwMsg').text('')
+		}
+	})
 	
-	if(pwVal.length <= 6) {
-		$('#pwMsg').text('6~10자 입력하세요.')
-	} else if(num < 0 || eng < 0) {
-		$('#pwMsg').text('영어, 숫자 포함 하여 입력하세요.')
-	} else {
-		$('#pwMsg').text('')
-	}
-})
-
-$('#checkIdBtn').click(() => {
-	if(isVal($('#userId'))) {
-		$.ajax({
-			url: 'checkUserId',
-			method: 'post',
-			contentType: 'application/json',
-			data: JSON.stringify({
-				userId: $('#userId').val()
-			})
-		}).done(user => {
-			if(!user) {
-				$('#checkIdMsg').text('사용가능한 아이디 입니다.').css('color', 'green')
-			} else {
-				$('#checkIdMsg').text('사용 중인 이이디 입니다.').css('color', 'red')
-			}
-		})
-	}
-})
-
-$('#checkNicknameBtn').click(() => {
-	if(isVal($('#nickName'))) {
-		$.ajax({
-			url: 'checkUserNickName',
-			method: 'post',
-			contentType: 'application/json',
-			data: JSON.stringify({
-				nickName: $('#nickName').val()
-			})
-		}).done(user => {
-			if(!user) {
-				$('#checkNickNameMsg').text('사용가능한 닉네임 입니다.').css('color', 'green')
-			} else {
-				$('#checkNickNameMsg').text('사용 중인 닉네임 입니다.').css('color', '#ff7707')
-			}
-		})
-	}
-})
-
-$('#joinBtn').click(() => {
-	if(isVal($('#userName')) && isVal($('#userId')) && isVal($('#userPw')) 
-		&& isVal($('#checkUserPw')) && isVal($('#nickName')) &&isVal($('#phoneNum'))) {
-			if(!$('#conditionsAgree').is(':checked')) {
-				$('#agreeMsg').text('약관에 동의 해 주세요.')
-			} else {
-				$.ajax({
-					url: 'joinIn',
-					method: 'post',
-					contentType: 'application/json',
-					data: JSON.stringify({
-						userId: $('#userId').val(),
-						userName: $('#userName').val(),
-						pw: $('#checkUserPw').val(),
-						nickName: $('#nickName').val(),
-						phoneNum: $('#phoneNum').val()
-					})
+	$('#userPw').focusout(() => {
+		let pwVal = $('#userPw').val()
+		const num = pwVal.search(/[0-9]/g)
+		const eng = pwVal.search(/[a-z]/ig)
+		
+		if(pwVal.length <= 6) {
+			$('#pwMsg').text('6~10자 입력하세요.')
+		} else if(num < 0 || eng < 0) {
+			$('#pwMsg').text('영어, 숫자 포함 하여 입력하세요.')
+		} else {
+			$('#pwMsg').text('')
+		}
+	})
+	
+	$('#checkIdBtn').click(() => {
+		if(isVal($('#userId'))) {
+			$.ajax({
+				url: 'checkUserId',
+				method: 'post',
+				contentType: 'application/json',
+				data: JSON.stringify({
+					userId: $('#userId').val()
 				})
-				$('form').submit()
-			}
-	}
-})
-
-
+			}).done(user => {
+				if(!user) {
+					$('#checkIdMsg').text('사용가능한 아이디 입니다.').css('color', 'green')
+				} else {
+					$('#checkIdMsg').text('사용 중인 이이디 입니다.').css('color', 'red')
+				}
+			})
+		}
+	})
+	
+	$('#checkNicknameBtn').click(() => {
+		if(isVal($('#nickName'))) {
+			$.ajax({
+				url: 'checkUserNickName',
+				method: 'post',
+				contentType: 'application/json',
+				data: JSON.stringify({
+					nickName: $('#nickName').val()
+				})
+			}).done(user => {
+				if(!user) {
+					$('#checkNickNameMsg').text('사용가능한 닉네임 입니다.').css('color', 'green')
+				} else {
+					$('#checkNickNameMsg').text('사용 중인 닉네임 입니다.').css('color', '#ff7707')
+				}
+			})
+		}
+	})
+	
+	$('#joinBtn').click(() => {
+		if(isVal($('#userName')) && isVal($('#userId')) && isVal($('#userPw')) 
+			&& isVal($('#checkUserPw')) && isVal($('#nickName')) &&isVal($('#phoneNum'))) {
+				if(!$('#conditionsAgree').is(':checked')) {
+					$('#agreeMsg').text('약관에 동의 해 주세요.')
+				} else {
+					$.ajax({
+						url: 'joinIn',
+						method: 'post',
+						contentType: 'application/json',
+						data: JSON.stringify({
+							userId: $('#userId').val(),
+							userName: $('#userName').val(),
+							pw: $('#checkUserPw').val(),
+							nickName: $('#nickName').val(),
+							phoneNum: $('#phoneNum').val()
+						})
+					})
+					$('form').submit()
+				}
+		}
+	})
 })
 </script>
 <style>

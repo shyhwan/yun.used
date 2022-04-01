@@ -49,7 +49,7 @@ $(listReports)
                 로고디자인
             </div>
             <span>안녕하세요. 관리자님!</span>
-            <a id="logout" href='../../main.html' class="ml-2">
+            <a id="logout" href='../../user/logout' class="ml-2">
                 <span class="d-none d-md-inline">로그아웃</span>
             </a>
         </div>
@@ -69,7 +69,7 @@ $(listReports)
                         <a href="../admin/trade">거래 관리</a>
                     </li>
                     <li class='m-4 text-center'>
-                        <a href="../admin/report">신고 관리</a>
+                        <a href="report">신고 관리</a>
                     </li> 
                 </ul>
             </nav>

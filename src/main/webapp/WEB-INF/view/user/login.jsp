@@ -40,12 +40,6 @@ $(() => {
 	$('#saveId').change(() => {
 		$('#saveIdMsg').toggle()
 	})
- 
-	$('#userPw').keydown(e => {
-        if(e.keyCode == 13) {
-			login()
-		}
-    })  
 })
 </script>
 <style>
