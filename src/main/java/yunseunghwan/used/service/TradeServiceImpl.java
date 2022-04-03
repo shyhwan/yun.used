@@ -88,7 +88,16 @@ public class TradeServiceImpl implements TradeService{
 			file.transferTo(new File(fileName));
 		} catch(IOException e) {}
 	}
-
+	
+	@Override
+	public void fixResTrade(Trade trade) {
+		tradeDao.updateResTrade(trade);
+	}
+	
+	@Override
+	public void fixFinishTrade(Trade trade) {
+		tradeDao.updateFinishTrade(trade);
+	}
 	@Override
 	public void delTrade(int tradeNum) {
 		tradeDao.deleteTrade(tradeNum);

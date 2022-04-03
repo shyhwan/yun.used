@@ -77,10 +77,100 @@ function checkwriter() {
 	}
 }
 
+function checkTrade() {
+	$('#checkArea').hide()
+	if('${trade.finish}' == 'FIN' || '${trade.reservation}' == 'RES') {
+		if('${trade.finish}' == 'N' && '${trade.reservation}' == 'N') {
+			$('#checkArea').hide()
+		} else {		
+			if('${trade.finish}' == 'FIN') {
+				$('#checkMsg').text('')
+				$('#productImg').find('div').append(
+					'<div id="checkArea" class="row checkTrade align-items-center justify-content-center w-100 h-100">' +
+						'<h4 id="checkMsg" class="alert-link">거래완료</h4>' +
+					'</div>').css('color', 'white')
+			} else if('${trade.reservation}' == 'RES') {
+				$('.resIcon').removeClass('fa-regular')
+				$('.resIcon').addClass('fa-solid')
+				$('#productImg').find('div').append(
+					'<div id="checkArea" class="row checkTrade align-items-center justify-content-center w-100 h-100">' +
+						'<h4 id="checkMsg" class="alert-link">예약중</h4>' +
+					'</div>').css('color', 'orange')
+			}
+		}
+	}
+}
+
 $(() => {
 	checkwriter()
 	commentList()
+	checkTrade()
 	
+	$('.resBtn').click(() => {
+		if('${trade.reservation}' == 'N') {			
+			$.ajax({
+				url: 'res',
+				method: 'put',
+				data: {
+					tradeNum: '${trade.tradeNum}',
+					reservation: 'RES'
+				}
+			}).done(result => {
+				location.reload()
+				checkTrade()})
+		} else {
+			$('.resIcon').removeClass('fa-solid')
+			$('.resIcon').addClass('fa-regular')
+			$.ajax({
+				url: 'res', 
+				method: 'put',
+				data: {
+					tradeNum: '${trade.tradeNum}',
+					reservation: 'N'
+				}
+			}).done(result => {
+				location.reload()
+				checkTrade()})
+		}
+	})
+	
+	$('#finishTradeBtn').click(() => {
+		if('${trade.finish}' == 'N') {
+			$.ajax({
+				url: 'finish',
+				method: 'put',
+				data: {
+					tradeNum: '${trade.tradeNum}',
+					finish: 'FIN'
+				}
+			}).done(result => {
+					$('.resIcon').removeClass('fa-solid')
+					$('.resIcon').addClass('fa-regular')
+					$.ajax({
+						url: 'res', 
+						method: 'put',
+						data: {
+							tradeNum: '${trade.tradeNum}',
+							reservation: 'N'
+						}
+					}).done(result => {
+						location.reload()
+						checkTrade()})
+			})
+		} else {
+			$.ajax({
+				url: 'finish',
+				method: 'put',
+				data: {
+					tradeNum: '${trade.tradeNum}',
+					finish: 'N'
+				}
+			}).done(result => {
+				location.reload()
+				checkTrade()})
+		}
+	})
+
 	$('#addCommentBtn').click(() => {
 		if($('#commentText').val() == null) {
 			$('#commentText').focus()
@@ -170,6 +260,15 @@ img {
 	visibility: hidden;
 	width: 0rem;
 }
+
+.checkTrade {
+	background-color: rgba(0, 0, 0, 0.5);
+	position: absolute;
+}
+
+#productImg {
+	position: relative;
+}
 </style>
 </head>
 <body>
@@ -218,7 +317,7 @@ img {
 					<div class='dropdown-menu w-50'>
 						<a class='dropdown-item' href='edit?tradeNum=${trade.tradeNum}'>수정</a><hr>
 						<button type='button' id='delPost' class='dropdown-item delContent'>삭제</button><hr>
-						<button type='button' class='dropdown-item'>거래완료</button>
+						<button id='finishTradeBtn' type='button' class='dropdown-item'>거래완료</button>
 					</div>
 				</div>
 			</div>

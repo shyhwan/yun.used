@@ -11,5 +11,7 @@ public interface TradeMap {
 	Trade selectTrade(int tradeNum);
 	void insertTrade(Trade trade);
 	void updateTrade(Trade trade);
+	void updateResTrade(Trade trade);
+	void updateFinishTrade(Trade trade);
 	void deleteTrade(int tradeNum);
 }

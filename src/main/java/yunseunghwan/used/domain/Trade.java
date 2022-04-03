@@ -18,6 +18,8 @@ public class Trade {
 	private String tradeImgFileName;
 	private String location;
 	private String price;
+	private String reservation;
+	private String finish;
 	private int viewCount;
 	private MultipartFile tradeImgFile;
 }

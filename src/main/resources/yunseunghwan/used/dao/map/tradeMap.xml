@@ -5,7 +5,7 @@
 	<select id='selectTrades' resultType='trade'>
 		select *
 		from trades
-		where trade_code = #{tradeCode} or trader_id = #{traderId}
+		where trade_code = #{tradeCode} or trader_id = #{traderId} or reservation = #{reservation} or finish = #{finish}
 		order by trade_reg_date
 	</select>
 		
@@ -33,6 +33,18 @@
 		set trader_id = #{traderId}, trade_code = #{tradeCode}, product_code = #{productCode}, 
 			title = #{title}, contents = #{contents}, trade_img_file_name = #{tradeImgFileName},
 			location = #{location}, price = #{price}
+		where trade_num = #{tradeNum}
+	</update>
+	
+	<update id='updateResTrade' parameterType='trade'>
+		update trades
+		set reservation = #{reservation}
+		where trade_num = #{tradeNum}
+	</update>
+	
+	<update id='updateFinishTrade' parameterType='trade'>
+		update trades
+		set finish = #{finish}
 		where trade_num = #{tradeNum}
 	</update>
 	

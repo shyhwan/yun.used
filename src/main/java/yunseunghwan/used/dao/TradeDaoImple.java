@@ -44,6 +44,16 @@ public class TradeDaoImple implements TradeDao{
 	}
 	
 	@Override
+	public void updateResTrade(Trade trade) {
+		tradeMap.updateResTrade(trade);
+	}
+	
+	@Override
+	public void updateFinishTrade(Trade trade) {
+		tradeMap.updateFinishTrade(trade);
+	}
+	
+	@Override
 	public void deleteTrade(int tradeNum) {
 		tradeMap.deleteTrade(tradeNum);
 	}

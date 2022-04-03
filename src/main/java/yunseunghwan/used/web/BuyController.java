@@ -70,6 +70,28 @@ public class BuyController {
 		tradeService.fixTrade(trade, session);
 	}
 	
+	@PutMapping("res") 
+	public void ResTrade(HttpSession session, ModelAndView mv, Trade trade){
+		tradeService.fixResTrade(trade);
+	}
+	
+	@PutMapping("finish") 
+	public void FinishTrade(HttpSession session, ModelAndView mv, Trade trade){
+		tradeService.fixFinishTrade(trade);
+	}
+	
+	@GetMapping("res")
+	public ModelAndView resTrades(ModelAndView mv) {
+		mv.setViewName("buy/reservationList");
+		return mv;
+	}
+	
+	@GetMapping("resList")
+	public List<Trade> reservationList(String getCode) {
+		getCode = "RES";
+		return tradeService.getTrades(getCode);
+	}
+	
 	@DeleteMapping("del/{tradeNum}")
 	public void delTrade(@PathVariable int tradeNum) {
 		tradeService.delTrade(tradeNum);

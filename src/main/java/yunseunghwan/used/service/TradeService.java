@@ -15,5 +15,7 @@ public interface TradeService {
 	ModelAndView getAdminTrade(ModelAndView mv, Trade trade);
 	void addTrade(HttpSession session, Trade trade);
 	void fixTrade(Trade trade, HttpSession session);
+	void fixResTrade(Trade trade);
+	void fixFinishTrade(Trade trade);
 	void delTrade(int tradeNum);
 }

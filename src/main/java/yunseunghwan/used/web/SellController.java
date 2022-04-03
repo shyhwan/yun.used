@@ -71,6 +71,28 @@ public class SellController {
 		tradeService.fixTrade(trade, session);
 	}
 	
+	@PutMapping("res") 
+	public void ResTrade(HttpSession session, ModelAndView mv, Trade trade){
+		tradeService.fixResTrade(trade);
+	}
+	
+	@PutMapping("finish") 
+	public void FinishTrade(HttpSession session, ModelAndView mv, Trade trade){
+		tradeService.fixFinishTrade(trade);
+	}
+	
+	@GetMapping("finish")
+	public ModelAndView finishTrades(ModelAndView mv) {
+		mv.setViewName("sell/tradeList");
+		return mv;
+	}
+	
+	@GetMapping("finishList")
+	public List<Trade> finishTradeList(String getCode) {
+		getCode = "FIN";
+		return tradeService.getTrades(getCode);
+	}
+	
 	@DeleteMapping("del/{tradeNum}")
 	public void delTrade(@PathVariable int tradeNum) {
 		tradeService.delTrade(tradeNum);

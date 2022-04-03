@@ -74,7 +74,7 @@ $(() => {
 			
 		<div id='userOption' class='row m-2 row-cols-2 row-cols-md-4'>
 			<div class='col mt-5 text-center'>
-				<a id='tradeList' class='mt-1' href='../sell/'>
+				<a id='tradeList' class='mt-1' href='../sell/finish'>
 					<i class="fa-solid fa-cart-arrow-down fa-2xl"></i>
 					<span class='mt-4 d-block'>거래 내역</span>
 				</a>
@@ -86,7 +86,7 @@ $(() => {
 				</a>
 			</div>
 			<div class='col mt-5 text-center'>
-				<a id='regList' class='mt-1' href='../buy/'>
+				<a id='regList' class='mt-1' href='../buy/res'>
 					<i class="fa-solid fa-calendar-check fa-2xl"></i>
 					<span class='mt-4 d-block'>예약 내역</span>
 				</a>
