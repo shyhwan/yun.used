@@ -25,8 +25,12 @@ public class ChatController {
 	@Autowired private MessageService messageService;
 	
 	@GetMapping
-	public ModelAndView chats(ModelAndView mv) {
-		mv.setViewName("chat/list");
+	public ModelAndView chats(ModelAndView mv, HttpSession session) {
+		if(session.getAttribute("userId") != null) {
+			mv.setViewName("chat/list");
+		} else {
+			mv.setViewName("user/login");
+		}
 		return mv;
 	}
 	
@@ -42,8 +46,8 @@ public class ChatController {
 	}
 	
 	@GetMapping("room")
-	public ModelAndView chatRoom(String userId, int tradeNum, ModelAndView mv) {
-		return chatService.getChat(userId, tradeNum, mv);
+	public ModelAndView chatRoom(String userId, int tradeNum, ModelAndView mv, HttpSession session) {
+		return chatService.getChat(userId, tradeNum, mv, session);
 	}
 	
 	@GetMapping("log/{roomNum}")

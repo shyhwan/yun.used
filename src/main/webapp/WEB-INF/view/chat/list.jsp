@@ -63,16 +63,8 @@ function chatList() {
 		}
 	})		
 }
-
-function checkLogin() {
-	if(!'${userId}') {
-		location.href='user/login'
-	}
-}
 	
 $(() => {
-	checkLogin() 
-	
 	chatList()
 })
 </script>
