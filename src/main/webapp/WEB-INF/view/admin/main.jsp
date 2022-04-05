@@ -64,8 +64,6 @@ function listReport() {
 
 $(() => {
 	listUsers()
-	
-	console.log($('#report').text())
 })
 
 $(listReport)
