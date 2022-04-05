@@ -20,11 +20,7 @@ function isVal(field) {
 	if(!field.val()) {
 		errMsg = field.attr('placeholder') + ' 입력하세요.'
 	} else {
-		if(userId.val().match('@')) {
-			isGood = true
-		} else {
-			errMsg = userId.attr('name') + ' 형식으로 입력해 주세요.'
-		}
+		isGood = true
 	}
 
 	if(!isGood) {
