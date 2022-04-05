@@ -2,8 +2,12 @@ package yunseunghwan.used.web;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -36,6 +40,12 @@ public class AdminController {
 	@GetMapping("userManager")
 	public ModelAndView UserProfile(ModelAndView mv, User user) {
 		return userService.getAdminUser(user, mv);
+	}
+	
+	@DeleteMapping("delUser/{userId}")
+	public void delUser(@PathVariable String userId, HttpSession session) {
+		userService.delUser(userId);
+		userService.outSession(session);
 	}
 	
 	@GetMapping("report")

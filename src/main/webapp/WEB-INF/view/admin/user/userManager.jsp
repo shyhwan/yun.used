@@ -12,7 +12,20 @@
 <script src='https://kit.fontawesome.com/449f39a7b2.js' crossorigin='anonymous'></script>
 <script>
 $(() => {
+	$('#delUserBtn').click(() => {
+		$('#modal').modal()
+		
+		$('#delUserOkBtn').click(() => {
+			$('#modal').modal('hide')
+			$.ajax({
+				url: 'delUser/' + $('#userId').val(),
+				method: 'delete'
+			}).done(result => {
+				location.href='../admin/users'
+			})
+		})
 	
+	})
 })
 </script>
 <style>
@@ -91,8 +104,8 @@ hr {
                             </div>
                         </div>
                         <div class='row justify-content-end form-group m-2'>
-                            <button type='button' onclick='location.href="01.html"' class='col-2 border btn btn-light form-control ml-2'>취소</button>
-                            <button type='button' onclick='location.href="01.html"' class='col-2 border btn editBtn form-control text-white'>수정</button>
+                            <button id='delUserBtn' type='button'  class='col-2 border btn form-control'
+                            	data-toggle='modal' data-target='#delUser'>탈퇴</button>
                         </div>
                     </form>
                 </div>
@@ -112,5 +125,19 @@ hr {
 			</div>
 		</div>
 	</footer>
+	
+	<div class='modal' id='delUser' tabindex='-1'>
+		<div class='modal-dialog modal-dialog-centered'>
+			<div class='modal-content'>
+				<div class='modal-body'>
+					<p>회원을 삭제하시겠습니까?</p>
+				</div>
+				<div class='modal-footer'>
+					<button type='button' class='btn btn-light border' data-dismiss="modal">아니오</button>
+					<button type='button'class='btn yesBtn' data-dismiss="modal" id='delUserOkBtn'>예</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
