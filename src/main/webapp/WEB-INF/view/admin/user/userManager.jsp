@@ -105,7 +105,7 @@ hr {
                         </div>
                         <div class='row justify-content-end form-group m-2'>
                             <button id='delUserBtn' type='button'  class='col-2 border btn form-control'
-                            	data-toggle='modal' data-target='#delUser'>탈퇴</button>
+                            	data-toggle='modal' data-target='#delUser'>삭제</button>
                         </div>
                     </form>
                 </div>
